@@ -4,14 +4,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BehaviourPlanting : PlayerBehaviour
+public class BehaviourPlanting : PlayerAbility
 {
 
     public Transform plantingGrid; 
     private static GameObject targeting;
     public SeedsSelection seedSelection;
     private GameObject seedPrefab;
-    public override void UpdateBehaviour(PlayerBehaviourManager manager)
+    public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
         Plant();  
 

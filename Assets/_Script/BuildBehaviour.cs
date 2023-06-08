@@ -41,6 +41,7 @@ public class BuildBehaviour : MonoBehaviour
     public void SetConstructionPrefab(GameObject constructionPrefab)
     {
         this.ConstrucitonPrefab = constructionPrefab;
+       
     }
 
 }

@@ -48,11 +48,11 @@ public class AutoWaterControll : MonoBehaviour
             }
         }
     }
-    void OnDrawGizmos()
+   /* void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, wateringRange);
-    }
+    }*/
 
 
 }

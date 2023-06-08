@@ -22,11 +22,14 @@ public class BuildManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        
+    }
+    private void Start()
+    {
         buildBehaviour = BuildBehaviour.Instance;
     }
     private void Update()
-    {
-        
+    {     
         BuildStateTransition();
     }
     private void BuildStateTransition()
@@ -100,7 +103,7 @@ public class BuildManager : MonoBehaviour
     private void RemoveMaterials()
     {
         List<CraftingFormula> materials = buildBehaviour.ConstrucitonPrefab.GetComponent<Construction>().construcitonData.materials;
-        Debug.Log(materials.Count);
+    
         for (int i = 0; i < materials.Count; i++)
         {
            

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BehaviourDestroying : PlayerBehaviour
+public class BehaviourDestroying : PlayerAbility
 {
-    public override void UpdateBehaviour(PlayerBehaviourManager manager) { }
+    public override void UpdateBehaviour(PlayerAbilityManager manager) { }
     protected GameObject target;
     private void Update()
     {

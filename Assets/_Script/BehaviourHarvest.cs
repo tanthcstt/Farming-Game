@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BehaviourHarvest : BehaviourDestroying
 {
-    public override void UpdateBehaviour(PlayerBehaviourManager manager)
+    public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
         UpdateTarget();
         Harvest();

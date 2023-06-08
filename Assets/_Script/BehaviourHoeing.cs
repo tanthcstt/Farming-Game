@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BehaviourHoeing : PlayerBehaviour
+public class BehaviourHoeing : PlayerAbility
 {
     /// <summary>
     /// when player hoeing mud object will instantiate on base tile (grass block)
@@ -15,7 +15,7 @@ public class BehaviourHoeing : PlayerBehaviour
     private static GameObject target;
 
   
-    public override void UpdateBehaviour(PlayerBehaviourManager manager)
+    public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
       
         PlayerHoeingController();

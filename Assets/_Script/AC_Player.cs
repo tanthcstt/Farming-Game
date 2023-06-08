@@ -6,7 +6,7 @@ public class AC_Player : MonoBehaviour
 {
     private Animator controller;
     public PlayerMovement playerMovement;
-    public PlayerBehaviour playerBehaviour;
+    public PlayerAbility playerBehaviour;
     public readonly float CollectingTime = 3f;
 
     private bool isEndState = true;

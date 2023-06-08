@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -54,10 +55,10 @@ public abstract class ShopUI : MonoBehaviour
     {
         for (int i = 0; i < GetSprite().Count; i++)
         {          
-            Transform imgTransform = content.GetChild(i).Find("Image");
+            Transform imgTransform = content.GetChild(i).Find("Image");       
             if (!imgTransform.TryGetComponent<Image>(out Image img)) continue;
             img.sprite = GetSprite()[i];
-
+          
         }
 
     }
