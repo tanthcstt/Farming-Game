@@ -11,16 +11,21 @@ public abstract class PlayerMovement : MonoBehaviour
 
     protected NavMeshAgent agent;
 
-    
+    public bool IsForceStop { get; private set; }  
 
     private void Awake()
     {
+        IsForceStop = false;
         agent = transform.root.GetComponent<NavMeshAgent>();
         if (agent == null) Debug.LogWarning("null NavMesh Agent");
     }
     private void Update()
     {
-        Move();
+        if (!IsForceStop)
+        {
+            Move();
+        }
+      
     }
 
     public abstract void Move();
@@ -33,7 +38,11 @@ public abstract class PlayerMovement : MonoBehaviour
 
     public bool IsWalking()
     {
-        return agent.velocity.magnitude > 0.1f;
+        return agent.velocity.magnitude > 0.001f;
     }
-
+    public void ForceStop(bool state)
+    {
+        IsForceStop = state;
+    }
+   
 }

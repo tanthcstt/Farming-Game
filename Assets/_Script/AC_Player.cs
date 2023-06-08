@@ -6,9 +6,12 @@ public class AC_Player : MonoBehaviour
 {
     private Animator controller;
     public PlayerMovement playerMovement;
+    public PlayerBehaviour playerBehaviour;
     public readonly float CollectingTime = 3f;
 
-    private enum State
+    private bool isEndState = true;
+
+    public enum State
     {
         Idle,
         Walking,
@@ -23,7 +26,10 @@ public class AC_Player : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(SwitchState());
+        if (isEndState)
+        {
+            StartCoroutine(SwitchState());
+        }
         PerformStateAction();
     }
 
@@ -36,10 +42,7 @@ public class AC_Player : MonoBehaviour
                 if (playerMovement.IsWalking())
                 {
                     currentState = State.Walking;
-                } else if (Input.GetKeyDown(InputManager.Instance.interactingKey))
-                {
-                    currentState = State.Collecting;
-                }
+                } 
                 break;
 
             case State.Walking:
@@ -47,13 +50,16 @@ public class AC_Player : MonoBehaviour
                 {
                     currentState = State.Idle;
                 }
+              
                 break ; 
 
-            case State.Collecting:             
+            case State.Collecting:
+                isEndState = false;
                 yield return new WaitForSeconds(CollectingTime);    
+                isEndState = true;  
                 currentState = State.Idle;
                 break ;
-        }
+        }       
     }
 
     // perform specific action for state
@@ -74,5 +80,14 @@ public class AC_Player : MonoBehaviour
                 controller.SetBool("isCollecting", true);
                 break;
         }
+    }
+
+    public void SetState(State state)
+    {
+        currentState = state;
+    }
+    public State GetState()
+    {
+        return currentState;
     }
 }

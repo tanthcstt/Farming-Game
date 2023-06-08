@@ -18,12 +18,16 @@ public class AnimationManager : MonoBehaviour
     {
         AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(0);
         AnimatorStateInfo next = animator.GetNextAnimatorStateInfo(0);
-
-        if (current.IsName(src) && next.IsName(des))
-        {
+       
+        if (current.IsName(src) && next.IsName(des) && src!= des)
+        {          
             return true;
         }
         return false;
     }
-  
+    public bool IsPlaying (Animator animator, string animationName)
+    {
+        AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(0);
+        return current.IsName(animationName) && current.normalizedTime > 0; 
+    }
 }

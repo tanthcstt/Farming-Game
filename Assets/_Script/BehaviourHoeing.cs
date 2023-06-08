@@ -25,19 +25,26 @@ public class BehaviourHoeing : PlayerBehaviour
     {
         // condition
         if (!Input.GetKey(InputManager.Instance.interactingKey)) return;
+       
         if (target == TargetManager.Instance.GetTileMapTarget()) return;
         target = TargetManager.Instance.GetTileMapTarget();
         if (target == null) return;
         if (target.CompareTag("Grass"))
-        {            
+        {
+           
+            playerMovement.ForceStop(true);
             // hoeing
             StartCoroutine(PlayerHoeing(target));
+            
         }     
                 
     }
     private IEnumerator PlayerHoeing(GameObject targeting)
     {
-        while(!AnimationManager.Instance.IsTransitTo(playerAnimator,"Collecting", "Idle"))
+       
+        AC_Player.SetState(AC_Player.State.Collecting);
+
+        while (AC_Player.GetState() == AC_Player.State.Collecting)
         {
             yield return null;  
         }
@@ -46,6 +53,8 @@ public class BehaviourHoeing : PlayerBehaviour
         Vector3 pos = new Vector3(targeting.transform.position.x, 0.5f, targeting.transform.position.z);
         cultivatedLand.transform.position = pos;
         cultivatedLand.transform.SetParent(baseTile, true);
+        playerMovement.ForceStop(false);
+       
     }
 
 
