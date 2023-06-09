@@ -12,6 +12,7 @@ public class MoveByMouseClick : PlayerMovement
        
         if (!Input.GetMouseButtonDown(1)) return;
         // set target position
+        if (TargetManager.Instance.GetMovingTarget() == null) return;   
         targetPosition = TargetManager.Instance.GetMovingTarget().transform.position;
         if (!IsOnNavMeshSurface(targetPosition))
         {

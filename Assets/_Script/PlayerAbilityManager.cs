@@ -6,11 +6,11 @@ using UnityEngine;
 public class PlayerAbilityManager : MonoBehaviour
 {
     private PlayerAbility currentBehaviour;
-    public BehaviourPlanting planting;
-    public BehaviourHoeing hoeing;
-    public BehaviourCuttingTree cuttingTree;
-    public BehaviourRockDam rockDam;
-    public BehaviourHarvest harvest;
+    public AbilityPlanting planting;
+    public AbilityHoeing hoeing;
+    public AbilityCuttingTree cuttingTree;
+    public AbilityRockDaming rockDam;
+    public AbilityHarvest harvest;
 
     private PlayerMovement playerMovement;
 

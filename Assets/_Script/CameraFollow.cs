@@ -14,7 +14,11 @@ public class CameraControl : MonoBehaviour
     public Vector3 offset; // from player to camera;
     private Vector3 targetPos;
     private Vector3 smoothedPos;
-
+    private Transform following;
+    private void Start()
+    {
+        ChangeFollowing(playerTransform);
+    }
     private void Update()
     {
         FollowByPlayerPosition();
@@ -22,7 +26,7 @@ public class CameraControl : MonoBehaviour
     }
     private void FollowByPlayerPosition()
     {
-        targetPos = playerTransform.position + offset;
+        targetPos = following.position + offset;
         smoothedPos = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
         transform.position = smoothedPos;
     }
@@ -36,13 +40,17 @@ public class CameraControl : MonoBehaviour
         {
             Vector3 increaseAxis = new Vector3(0, -1, 1);
             Vector3 newOffset = offset + ((scroll > 0) ? increaseAxis * 2 : -increaseAxis * 2);
-            if (Vector3.Distance(playerTransform.position + newOffset, playerTransform.position) >= maxDistance) return;
-            if (Vector3.Distance(playerTransform.position + newOffset, playerTransform.position) <= minDistance) return;
+            if (Vector3.Distance(following.position + newOffset, following.position) >= maxDistance) return;
+            if (Vector3.Distance(following.position + newOffset, following.position) <= minDistance) return;
             offset = newOffset;
             
         }
         
     }
+    public void ChangeFollowing(Transform objToFollow)
+    {
+        this.following = objToFollow;
+    } 
 
 
 }
