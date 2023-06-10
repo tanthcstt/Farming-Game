@@ -33,21 +33,17 @@ public class AbilityHoeing : PlayerAbility
            
             playerMovement.ForceStop(true);
             // hoeing
-            StartCoroutine(PlayerHoeing(target));
-            
+            StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Hoeing, () =>
+            {
+                PlayerHoeing(target);
+            }));
+
         }     
                 
     }
-    private IEnumerator PlayerHoeing(GameObject targeting)
+    private void PlayerHoeing(GameObject targeting)
     {
-        if (AC_Player.GetState() == AC_Player.State.Collecting) yield break;
-        AC_Player.SetState(AC_Player.State.Collecting);
-
-        while (AC_Player.GetState() == AC_Player.State.Collecting)
-        {
-            yield return null;  
-        }
-
+       
         GameObject cultivatedLand = Instantiate(cultivatedLand_Prefabs);
         Vector3 pos = new Vector3(targeting.transform.position.x, 0.5f, targeting.transform.position.z);
         cultivatedLand.transform.position = pos;

@@ -44,7 +44,7 @@ public class AutoWaterControll : MonoBehaviour
             if (coll.gameObject.TryGetComponent(out PlantGrowing plantGrowing))
             {
                 plantGrowing.Watering();
-                Debug.Log(coll.gameObject.name);
+               
             }
         }
     }

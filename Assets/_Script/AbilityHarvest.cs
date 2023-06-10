@@ -7,7 +7,11 @@ public class AbilityHarvest : AbilityDestroying
     public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
         SetTarget();
-        Harvest();
+        if (!IsValidTarget()) return;
+        StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Collecting, () =>
+        {
+            Harvest();
+        }));
     }
     protected override void SetTarget()
     {
@@ -16,20 +20,14 @@ public class AbilityHarvest : AbilityDestroying
     }
        
     private void Harvest()
-    {      
-
-        if (target && target.GetComponent<PlantGrowing>())
+    {
+        if (target.TryGetComponent<PlantData>(out PlantData plantData))
         {
-            int growLevel = target.GetComponent<PlantGrowing>().Level;
-            if (growLevel < 2) return;            
-            if (target.TryGetComponent<PlantData>(out PlantData plantData))
-            {
-                if (plantData == null) return;
-                DropItem(plantData);
-                RemoveGrownPlant();
-            }
-           
+            if (plantData == null) return;
+            DropItem(plantData);
+            RemoveGrownPlant();
         }
+
     }
     private void RemoveGrownPlant()
     {
@@ -41,5 +39,12 @@ public class AbilityHarvest : AbilityDestroying
         GameObject drop = Instantiate(planData.generalData.dropItem);
         drop.transform.position = target.transform.position;
     }
-
+    private bool IsValidTarget()
+    {
+        if (target && target.TryGetComponent(out PlantGrowing growing))
+        {
+            if (growing.Level == 2) return true;
+        }
+        return false;
+    }
 }
