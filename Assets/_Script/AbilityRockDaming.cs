@@ -6,8 +6,8 @@ public class AbilityRockDaming : AbilityDestroying
 {
     public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
-        UpdateTarget();
-        if (!Input.GetKeyDown(InputManager.Instance.interactingKey)) return;
+        SetTarget();
+       
 
         if (target == null) return;
         if (target.activeSelf == false) return;

@@ -23,8 +23,7 @@ public class AbilityHoeing : PlayerAbility
     }
     private void PlayerHoeingController()
     {
-        // condition
-        if (!Input.GetKey(InputManager.Instance.interactingKey)) return;
+       
        
         if (target == TargetManager.Instance.GetTileMapTarget()) return;
         target = TargetManager.Instance.GetTileMapTarget();

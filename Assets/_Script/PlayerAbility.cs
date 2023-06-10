@@ -17,5 +17,6 @@ public abstract class PlayerAbility: MonoBehaviour
 
     public abstract void UpdateBehaviour(PlayerAbilityManager manager);
 
+   
 
 }

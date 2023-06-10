@@ -6,10 +6,6 @@ public class AbilityDestroying : PlayerAbility
 {
     public override void UpdateBehaviour(PlayerAbilityManager manager) { }
     protected GameObject target;
-    private void Update()
-    {
-       
-    }
 
     protected void Destroy()
     {      
@@ -23,11 +19,11 @@ public class AbilityDestroying : PlayerAbility
         GameObject dropObj = Instantiate(GetDropPrefab());
         dropObj.transform.position = target.transform.position;
     }
-    public virtual void UpdateTarget()
-    {     
-        target = TargetManager.Instance.GetDestroyableObjTarget();
+    protected virtual void SetTarget()
+    {
+        target = TargetManager.Instance.playerTarget.ForwardTarget(LayerMask.GetMask("Destroyable_Env"));
     }
-    public virtual GameObject GetDropPrefab()
+    protected virtual GameObject GetDropPrefab()
     {
         if (target.GetComponent<DestroyableEnvObjData>())
         {

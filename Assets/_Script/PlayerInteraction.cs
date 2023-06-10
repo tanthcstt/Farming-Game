@@ -4,27 +4,30 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    private readonly string[] interactableLayer = { "Construction", "Vehicle" };
+    private GameObject target;
     private void Update()
     {
-        OpenDoor();
-        BoatDriving();
-    }
-    private void BoatDriving()
-    {
-        if (!Input.GetMouseButtonDown(1)) return;    
-        GameObject target = TargetManager.Instance.mouseTarget.MouseTargetObj(LayerMask.GetMask("Vehicle"));
-        if (target && target.TryGetComponent(out BoatDriving boatDriving))
+        if (!Input.GetKeyDown(KeyManager.interact)) return;
+
+        target = TargetManager.Instance.GetInteractiveTarget(LayerMask.GetMask(interactableLayer));
+        if (target == null) return;
+        string layerName = LayerMask.LayerToName(target.layer);   
+        
+        switch(layerName)
         {
-            boatDriving.GetOn(transform.root.gameObject);
+            case "Construction":
+                if (target.TryGetComponent(out FenceDoorOpening doorOpening)) doorOpening.ToggleDoor();
+                break;
+            case "Vehicle":
+                if (target.TryGetComponent(out BoatDriving boat))
+                {                   
+                    boat.GetOn(transform.root.gameObject);                   
+                }
+                break ; 
         }
+       
     }
-    private void OpenDoor()
-    {
-        if (!Input.GetMouseButtonDown(1)) return;
-        GameObject target = TargetManager.Instance.mouseTarget.MouseTargetObj(LayerMask.GetMask("Construction"));
-        if (target && target.TryGetComponent(out FenceDoorOpening doorOpening))
-        {
-            doorOpening.ToggleDoor();
-        }
-    }
+  
+   
 }

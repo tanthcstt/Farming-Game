@@ -25,9 +25,7 @@ public class AbilityPlanting : PlayerAbility
     /// </summary>
     private void Plant()
     {
-        // player input 
-        if (!Input.GetMouseButtonDown(1) &&
-            !Input.GetKey(InputManager.Instance.interactingKey)) return;
+       
         if (TargetManager.Instance.GetTileMapTarget() == targeting) return;
         // is player has seed bag
         int seedBagType = seedSelection.GetSelectedItem().itemType;

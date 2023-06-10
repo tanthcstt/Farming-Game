@@ -7,15 +7,7 @@ public class InputManager : MonoBehaviour
    
     public static InputManager Instance { get; private set; }
     public KeyCode interactingKey = KeyCode.Space;
-    private readonly KeyCode[] hotbarKey =
-    {       
-       // KeyCode.Alpha0,
-        KeyCode.Alpha1,
-        KeyCode.Alpha2,
-        KeyCode.Alpha3,
-        KeyCode.Alpha4,
-        KeyCode.Alpha5,
-    };
+    
     public int HotbarSelection { get; private set; }
     public GameObject player;
     
@@ -40,9 +32,9 @@ public class InputManager : MonoBehaviour
     // return index of hotbar key pressed to set state or ui
     private void UpdateHobarSelecting()
     {
-        for (int i = 0; i < hotbarKey.Length; i++)
+        for (int i = 0; i < KeyManager.abilites.Length; i++)
         {
-            if (Input.GetKeyDown(hotbarKey[i]))
+            if (Input.GetKeyDown(KeyManager.abilites[i]))
             {
                 HotbarSelection = i;              
                 return;

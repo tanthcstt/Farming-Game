@@ -25,10 +25,7 @@ public class BoatDriving : MonoBehaviour
         LoadComponent();    
         ToggleParticleSystems(false);
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F)) GetOff();
-    }
+    
     private void LoadComponent()
     {
         rb = GetComponent<Rigidbody>();
@@ -59,13 +56,17 @@ public class BoatDriving : MonoBehaviour
         Vector3 targetPos = NavMeshHelper.Instance.GetNearsetPosition(transform.position, 10f);
         if (targetPos != Vector3.zero)
         {
-            this.player.SetActive(true);
             this.player.transform.position = targetPos;
+            this.player.SetActive(true);
             cameraControl.ChangeFollowing(player.transform);
             isGetOn = false;
 
 
         }
+    }
+    private void Update()
+    {
+        if (isGetOn && Input.GetKeyDown(KeyManager.getOffVehicle)) GetOff();    
     }
     private void FixedUpdate()
     {
@@ -73,6 +74,8 @@ public class BoatDriving : MonoBehaviour
     }
     public void Drive()
     {
+        
+
         // prevent boat fly infinitely
         if (bouyancy.IsAboveWater) return;
 
@@ -102,6 +105,7 @@ public class BoatDriving : MonoBehaviour
         Quaternion deltaRotation = Quaternion.Euler(Vector3.up * turnSpeed * x * Time.fixedDeltaTime);
         rb.MoveRotation(deltaRotation * rb.rotation);
 
+        
     }
     private void ToggleParticleSystems(bool state)
     {

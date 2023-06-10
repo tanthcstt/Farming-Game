@@ -32,6 +32,10 @@ public class TargetManager : MonoBehaviour
         return mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
     }
 
+    public GameObject GetInteractiveTarget(LayerMask layer)
+    {
+        return playerTarget.ForwardTarget(layer);
+    }
   
     public bool IsInTargetRange(GameObject target)
     {        
@@ -40,29 +44,7 @@ public class TargetManager : MonoBehaviour
 
 
 
-    /// <summary>
-    ///     if player right click => target to this obj
-    ///     if player moving by key => target forward
-    ///      if player do nothing => return previous target
-    ///     this function use private variable destroyableObjTarget to store previous target
-    ///     this function must be called in update
-    /// </summary>
-    /// <returns></returns>
-    public GameObject GetDestroyableObjTarget()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            destroyableObjTarget = mouseTarget.MouseTargetObj(LayerMask.GetMask(destroyableLayer));
-       
-        } 
-        else if (InputManager.Instance.IsMovingKeyPress())
-        {
-            destroyableObjTarget = playerTarget.ForwardTarget(LayerMask.GetMask(destroyableLayer));
-        }
-  
-        return destroyableObjTarget;
-    }
-    // =======================================================
+    
 
     public GameObject GetTileMapTarget()
     {

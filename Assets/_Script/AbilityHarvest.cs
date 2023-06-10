@@ -6,18 +6,17 @@ public class AbilityHarvest : AbilityDestroying
 {
     public override void UpdateBehaviour(PlayerAbilityManager manager)
     {
-        UpdateTarget();
+        SetTarget();
         Harvest();
     }
-    public override void UpdateTarget()
+    protected override void SetTarget()
     {
         target = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Plant"));
-       
-        
+
     }
+       
     private void Harvest()
-    {
-        if (!Input.GetKey(InputManager.Instance.interactingKey)) return;
+    {      
 
         if (target && target.GetComponent<PlantGrowing>())
         {
