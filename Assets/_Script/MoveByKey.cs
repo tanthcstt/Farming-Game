@@ -11,11 +11,18 @@ public class MoveByKey : PlayerMovement
     private float horizontal;
     private float vertical;
     private Vector3 direction;
+    [SerializeField] private FixedJoystick joyStick;
     public override void Move()
     {
 
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        /*horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");*/
+        
+        if (true)
+        {
+            horizontal = joyStick.Horizontal;
+            vertical = joyStick.Vertical;
+        }
 
         direction = new Vector3(horizontal, 0, vertical);
 
