@@ -23,10 +23,10 @@ public class AbilityHoeing : PlayerAbility
     }
     private void PlayerHoeingController()
     {
-       
-       
-        if (target == TargetManager.Instance.GetTileMapTarget()) return;
-        target = TargetManager.Instance.GetTileMapTarget();
+
+
+        target = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+
         if (target == null) return;
         if (target.CompareTag("Grass"))
         {

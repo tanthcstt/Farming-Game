@@ -11,37 +11,27 @@ public class CraftingUI : ShopUI
     public GameObject CraftBtn;
     public GameObject UIItemPrefab;
 
-    private GameObject craftingUI;
+    
     private Transform materialContent;
     protected List<Sprite> craftingSprites = new List<Sprite>();
     private Image craftingObjImg; 
-    private void Awake()
-    {
-        craftingUI = transform.parent.gameObject;
-    }
+    
     public override void Start()
     {
         base.Start();
         ChangeDiscriptionUI();
-        craftingUI.SetActive(false);
+     
         
     }
 
-    private void ToggleCraftingUI()
-    {
-        craftingUI.SetActive(!craftingUI.activeSelf);
-    }
+   
     public override void LoadComponent()
     {
         base.LoadComponent();
 
         Transform discriptionContent = transform.parent.Find("Discription/Content");
         craftingObjImg = discriptionContent.Find("Crafting").GetComponent<Image>();
-        materialContent = discriptionContent.Find("MaterialContent");
-
-        Button craft = CraftBtn.GetComponent<Button>();
-        // temporary add listener
-        craft.onClick.AddListener(ToggleCraftingUI);
+        materialContent = discriptionContent.Find("MaterialContent");      
     }
 
     protected void ChangeDiscriptionUI()
@@ -71,11 +61,9 @@ public class CraftingUI : ShopUI
         ChangeDiscriptionUI();
     }
     public override void OnSubmit()
-    {
-
-    
+    {    
         BuildManager.Instance.Build(CraftingData.SOConstructions[selectedSlot].prefab, BuildManager.BuildState.startBuild);
-        ToggleCraftingUI();
+        transform.parent.gameObject.SetActive(false);
 
     }
 

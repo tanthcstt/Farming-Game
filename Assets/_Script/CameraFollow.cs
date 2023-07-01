@@ -6,7 +6,8 @@ public class CameraControl : MonoBehaviour
 {
     [Header("Camera Zoom")] //  zoom by change distance from player to camera
     private readonly float minDistance = 10f;
-    private readonly float maxDistance = 70f;  
+    private readonly float maxDistance = 70f;
+    [SerializeField] private PinchGesture pinch;
 
     [Header("Camera Follow")]
     private readonly float smoothSpeed = 0.05f;
@@ -15,6 +16,7 @@ public class CameraControl : MonoBehaviour
     private Vector3 targetPos;
     private Vector3 smoothedPos;
     private Transform following;
+
     private void Start()
     {
         ChangeFollowing(playerTransform);
@@ -22,7 +24,8 @@ public class CameraControl : MonoBehaviour
     private void Update()
     {
         FollowByPlayerPosition();
-        CameraZoom();   
+        CameraZoom();
+        
     }
     private void FollowByPlayerPosition()
     {
@@ -35,7 +38,9 @@ public class CameraControl : MonoBehaviour
 
     private void CameraZoom()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");        
+        
+        float scroll = (Application.platform == RuntimePlatform.Android)? pinch.PinchMagnitude: Input.GetAxis("Mouse ScrollWheel");
+              
         if (scroll != 0.0f)
         {
             Vector3 increaseAxis = new Vector3(0, -1, 1);

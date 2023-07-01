@@ -17,7 +17,7 @@ public class AbilityPlanting : PlayerAbility
 
     }
     /// <summary>
-    /// 1. check player input (key/mouse)
+    /// 1. get target
     /// 2. check if player has this seed in inventory
     /// 3. check for valid target
     /// 4.place object
@@ -25,19 +25,18 @@ public class AbilityPlanting : PlayerAbility
     /// </summary>
     private void Plant()
     {
-       
-        if (TargetManager.Instance.GetTileMapTarget() == targeting) return;
+
+        targeting = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+        if (targeting == null) return;
+        // is valid target
+        if (IsPlanted()) return;
+        if (!targeting.CompareTag("Cultivated Land")) return;
+
         // is player has seed bag
         int seedBagType = seedSelection.GetSelectedItem().itemType;
         if (!InventoryManager.Instance.inventoryStorage.IsEnoughItem(seedBagType, 1)) return;
         seedPrefab = seedSelection.GetSelectedItem().insideItem;
-        // set target
-        targeting = TargetManager.Instance.GetTileMapTarget();     
-       // is valid target
-        if (IsPlanted()) return;        
-        if (targeting == null) return;
-        if (!targeting.CompareTag("Cultivated Land")) return;
-
+        
         // place plant
         PlaceObj(GetPosition(targeting));
 

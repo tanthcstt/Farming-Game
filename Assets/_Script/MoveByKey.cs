@@ -14,14 +14,14 @@ public class MoveByKey : PlayerMovement
     [SerializeField] private FixedJoystick joyStick;
     public override void Move()
     {
-
-        /*horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");*/
-        
-        if (true)
+        if (Application.platform == RuntimePlatform.Android)
         {
             horizontal = joyStick.Horizontal;
             vertical = joyStick.Vertical;
+        } else
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
         }
 
         direction = new Vector3(horizontal, 0, vertical);

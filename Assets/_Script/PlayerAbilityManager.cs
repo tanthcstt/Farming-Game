@@ -26,8 +26,8 @@ public class PlayerAbilityManager : MonoBehaviour
 
         if (playerMovement.IsWalking()) return;
         if (!Input.GetKeyDown(KeyManager.useAbility)) return;
-        // behaviour loop
-        currentBehaviour.UpdateBehaviour(this);
+
+        UseAbility();       
     }
     
     private void BehaviourController()
@@ -57,6 +57,10 @@ public class PlayerAbilityManager : MonoBehaviour
     private void SetBehaviour(PlayerAbility behaviour)
     {
         currentBehaviour = behaviour;
+    }
+    public void UseAbility()
+    {
+        currentBehaviour.UpdateBehaviour(this);
     }
 
 
