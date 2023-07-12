@@ -4,30 +4,71 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private readonly string[] interactableLayer = { "Construction", "Vehicle" };
-    private GameObject target;
-    private void Update()
+    private readonly string[] interactableLayer = { "Construction", "Vehicle", "NPC" };
+    public GameObject Target { get; private set; }
+    
+    public enum InteractionType
     {
-        if (!Input.GetKeyDown(KeyManager.interact)) return;
+        useAbility,
+        OpenDoor,
+        GetOnBoat,
+        Trading
+    }
+    public InteractionType CurrentType { get; private set; }
+    private void Update()
+    {      
 
-        target = TargetManager.Instance.GetInteractiveTarget(LayerMask.GetMask(interactableLayer));
-        if (target == null) return;
-        string layerName = LayerMask.LayerToName(target.layer);   
-        
-        switch(layerName)
+        SetTarget();
+        SetType();
+    }
+    
+    private void SetTarget()
+    {
+        Target = TargetManager.Instance.GetInteractiveTarget(LayerMask.GetMask(interactableLayer));        
+    }
+    public void Interact()
+    {
+        switch (CurrentType)
         {
-            case "Construction":
-                if (target.TryGetComponent(out FenceDoorOpening doorOpening)) doorOpening.ToggleDoor();
+            case InteractionType.OpenDoor:
+                if (Target.TryGetComponent(out FenceDoorOpening doorOpening)) doorOpening.ToggleDoor();
                 break;
-            case "Vehicle":
-                if (target.TryGetComponent(out BoatDriving boat))
-                {                   
-                    boat.GetOn(transform.root.gameObject);                   
+            case InteractionType.GetOnBoat:
+                if (Target.TryGetComponent(out BoatDriving boat))
+                {
+                    boat.GetOn(transform.root.gameObject);
                 }
-                break ; 
+                break;
+            case InteractionType.Trading:
+                UIManager.Instance.ToggleUI(UIManager.Instance.tradingUI);   
+                break;
+            default:
+                break;
         }
+
+    
        
     }
-  
-   
+    private void SetType()
+    {
+        if (Target == null)
+        {
+            CurrentType = InteractionType.useAbility;
+            return; 
+        }
+
+        var layerName = LayerMask.LayerToName(Target.layer);
+        if (layerName == "Construction")
+        {
+            CurrentType = InteractionType.OpenDoor;
+        } else if (layerName == "Vehicle")
+        {
+            CurrentType = InteractionType.GetOnBoat;
+        } else if (layerName == "NPC")
+        {
+            CurrentType = InteractionType.Trading;
+            
+        }
+
+    }
 }

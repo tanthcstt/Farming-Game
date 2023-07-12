@@ -8,7 +8,7 @@ using UnityEngine;
 public class InventoryStorage : MonoBehaviour
 {
 
-    protected List<GeneralItemData> inventoryList = new List<GeneralItemData>();
+    [SerializeField] protected List<GeneralItemData> inventoryList = new List<GeneralItemData>();
     public List<GeneralItemData> InventoryList { get { return inventoryList; } }
     public readonly int maxInventorySlot = 9;
    
@@ -23,28 +23,27 @@ public class InventoryStorage : MonoBehaviour
             inventoryList.Add(null);
         }
     }
-    // only add data use pick up  in inventory manager for both data and ui
+    // only add data, use pick up method in inventory manager for both data and ui
     public void AddToStorage(GeneralItemData itemData)
     {
 
-        if (IsContainItem(itemData) && GetNotFullSlot(itemData) == -1) // case 1
+        if (IsContainItem(itemData) && GetNotFullSlot(itemData) == -1) // case 1 contain item but amount = max of  1 stack
         {
             AddToEmptySlot(itemData, GetEmptySlotIndex());
         }
-        else if (IsContainItem(itemData) && GetNotFullSlot(itemData) != -1) // case 2
+        else if (IsContainItem(itemData) && GetNotFullSlot(itemData) != -1) // case 2 contain item, amount < max of 1 stack
         {
             AddToAvailableSlot(GetNotFullSlot(itemData));
 
         }
-        else // case 3
+        else // case 3 not contain item=> add to empty 
         {
             AddToEmptySlot(itemData, GetEmptySlotIndex());
         }
-
-        itemData.gameObject.SetActive(false);
+       
 
     }
-    // only remove data use remove in inventory manager for both data and ui
+    // only remove data, use remove method in inventory manager for both data and ui
     public void RemoveFromStorage(int itemType, int amount)
     {
         for (int i = 0; i < inventoryList.Count; i++)
@@ -79,8 +78,8 @@ public class InventoryStorage : MonoBehaviour
     private void AddToEmptySlot(GeneralItemData itemData, int slotIndex)
     {
         if (slotIndex == -1) return;
-        itemData.count = 1;
         inventoryList[slotIndex] = itemData;
+        itemData.count = 1;
     }
     private int GetNotFullSlot(GeneralItemData itemData)
     {
@@ -89,8 +88,10 @@ public class InventoryStorage : MonoBehaviour
         {
             if (inventoryList[i] == null) continue;
             if (inventoryList[i].generalData.itemType != itemData.generalData.itemType) continue;
-            if (inventoryList[i].count >= itemData.generalData.maxOfStack) continue;
-            return i;
+            if (inventoryList[i].count < itemData.generalData.maxOfStack)
+            {
+                return i;
+            }
         }
         return -1;
     }

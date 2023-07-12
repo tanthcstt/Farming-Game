@@ -33,6 +33,7 @@ public class MoveByKey : PlayerMovement
        
 
         if (!NavMesh.SamplePosition(target, out NavMeshHit _, 0.2f, NavMesh.AllAreas)) return;
+        agent.stoppingDistance = 0;
         agent.SetDestination(target);
         ChangePlayerRotation(target);
     }

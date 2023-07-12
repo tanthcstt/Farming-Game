@@ -25,7 +25,8 @@ public class PinchGesture :MonoBehaviour
         int validTouch = 0;
         foreach (Touch touch in Input.touches)
         {
-            if (IsValidTouch(touch) && validTouch < 2)
+            //valid touch is outside joystick
+            if (GestureManager.Instance.IsValidTouch(joyStickTransform,touch) && validTouch < 2)
             {
                 currTouches[validTouch] = touch.position;
                 validTouch++;
@@ -45,14 +46,7 @@ public class PinchGesture :MonoBehaviour
         Array.Copy(currTouches, prevTouches, 2);
     }
 
-    // a touch is valid if it outside joystick
-    private bool IsValidTouch(Touch touch)
-    {
-        if (RectTransformUtility.RectangleContainsScreenPoint(joyStickTransform,touch.position))
-        {
-            return false;
-        }
-        return true;
-    }
+   
+   
 
 }

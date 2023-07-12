@@ -17,7 +17,9 @@ public class UIHotbarItemSelection : MonoBehaviour
             ActiveSelectionUI();
             isActive = true;
         }
+
     }
+    
     private void OnDisable()
     {
         isActive = false;
@@ -49,11 +51,11 @@ public class UIHotbarItemSelection : MonoBehaviour
     {
         items.Clear();
         
-        for (int i = 0; i < shopData.GetShopList().Count; i++)
+        for (int i = 0; i < shopData.GetBuyList().Count; i++)
         {
             if (InventoryManager.Instance == null) return; // prevent this method call before set instance of InventoryManager
-            if (!InventoryManager.Instance.inventoryStorage.IsEnoughItem(shopData.GetShopList()[i].itemType, 1)) continue;
-            items.Add(shopData.GetShopList()[i]);
+            if (!InventoryManager.Instance.inventoryStorage.IsEnoughItem(shopData.GetBuyList()[i].itemType, 1)) continue;
+            items.Add(shopData.GetBuyList()[i]);
         }
 
     }
@@ -88,5 +90,8 @@ public class UIHotbarItemSelection : MonoBehaviour
     public virtual ScriptableObject_Items GetSelectedItem() { return null; }
    
    
-   
+    public int GetCurrentIndex()
+    {
+        return currentSelectedIndex;    
+    }
 }

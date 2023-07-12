@@ -16,3 +16,5 @@ MonoBehaviour:
   itemName: Log
   itemSprite: {fileID: 21300000, guid: 4d9116391cb5a2645a3b98818ee04403, type: 3}
   maxOfStack: 3
+  prefab: {fileID: 4155190451518624576, guid: 1b5b4637fef90453ca5b0c71b0c650ce, type: 3}
+  price: 0

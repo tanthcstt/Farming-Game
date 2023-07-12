@@ -18,6 +18,7 @@ public abstract class PlayerMovement : MonoBehaviour
         IsForceStop = false;
         agent = transform.root.GetComponent<NavMeshAgent>();
         if (agent == null) Debug.LogWarning("null NavMesh Agent");
+        
     }
     private void Update()
     {
@@ -25,6 +26,7 @@ public abstract class PlayerMovement : MonoBehaviour
         {
             Move();
         }
+         
       
     }
 

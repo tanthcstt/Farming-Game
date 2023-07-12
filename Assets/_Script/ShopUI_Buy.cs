@@ -6,31 +6,31 @@ public class ShopUI_Buy : ShopUI
 {
     protected List<Sprite> sprites = new List<Sprite>();
     public ShopData shopData;
-
+    protected List<ScriptableObject_Items> buyList;
     public override void Start()
     {
+        buyList = shopData.GetBuyList();
         base.Start();
         UpdatePriceButton();
     }
     public override void OnSubmit()
-    {
-        // insert buy code here
-        Debug.Log("bought");
-        TradingManager.Instance.Buy(shopData.GetShopList()[selectedSlot]);
+    {     
+      
+        TradingManager.Instance.Buy(buyList[selectedSlot]);
     }
    
     protected override List<Sprite> GetSprite()
     {
         sprites.Clear();
-        for (int i = 0; i < shopData.GetShopList().Count; i++)
+        for (int i = 0; i < buyList.Count; i++)
         {
-            sprites.Add(shopData.GetShopList()[i].itemSprite);  
+            sprites.Add(buyList[i].itemSprite);  
         }
         return sprites;
     }
 
     protected override int GetPrice(int index)
     {
-        return shopData.GetShopList()[index].price; 
+        return buyList[index].price; 
     }
 }

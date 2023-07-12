@@ -11,6 +11,8 @@ public class BuildBehaviour : MonoBehaviour
     public GameObject BuiltConstruction { get; private set; }
 
     public Transform ConstructionParent;
+    [SerializeField] private Transform playerTransform;
+    
 
     private void Awake()
     {
@@ -25,15 +27,18 @@ public class BuildBehaviour : MonoBehaviour
     }
     public void CreateObject()
     {
-        BuiltConstruction = Instantiate(ConstrucitonPrefab,ConstructionParent);
+        BuiltConstruction = Instantiate(ConstrucitonPrefab,playerTransform.position + Vector3.forward*3, Quaternion.identity,ConstructionParent);
     }
     public void SetPosByRuntime()
     {
-        Vector3 pos = TargetManager.Instance.mouseTarget.MouseTargetObj(LayerMask.GetMask("Base")).transform.position;
+        GameObject target = TargetManager.Instance.mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
+        if (target == null) return;
+        Vector3 pos = target.transform.position;
         pos.y += heightOffset;
         BuiltConstruction.transform.position = pos;
-
     }
+  
+   
     public void DestroyConstruction(GameObject construction)
     {
         Destroy(construction);
@@ -42,6 +47,15 @@ public class BuildBehaviour : MonoBehaviour
     {
         this.ConstrucitonPrefab = constructionPrefab;
        
+    }
+
+    public void RemoveConstruction()
+    {
+        if (BuiltConstruction.TryGetComponent<GeneralItemData>(out GeneralItemData construcitonData))
+        {
+            InventoryManager.Instance.RemoveItem(construcitonData.generalData.itemType, 1);
+        }
+        
     }
 
 }

@@ -35,7 +35,7 @@ public class AbilityPlanting : PlayerAbility
         // is player has seed bag
         int seedBagType = seedSelection.GetSelectedItem().itemType;
         if (!InventoryManager.Instance.inventoryStorage.IsEnoughItem(seedBagType, 1)) return;
-        seedPrefab = seedSelection.GetSelectedItem().insideItem;
+        seedPrefab = seedSelection.GetSelectedItem().prefab.GetComponent<GeneralItemData>().generalData.prefab;
         
         // place plant
         PlaceObj(GetPosition(targeting));

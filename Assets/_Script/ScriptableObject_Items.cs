@@ -9,12 +9,12 @@ public class ScriptableObject_Items : ScriptableObject
     public string itemName;
     public Sprite itemSprite;
     public int maxOfStack;
-
-    [Header("Inside item (for bag)")] // bag of seeds, bag of something
-    public GameObject insideItem;
-
+    public bool isUsableInInventory;
+  
     // for trading
     [Header("Trading")]
-    public GameObject tradeItem;
+    public GameObject prefab;
+   
+
     public int price = 0;
 }

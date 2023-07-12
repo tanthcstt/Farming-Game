@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,9 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
     private BuildBehaviour buildBehaviour;
+    [SerializeField] private GameObject placedObjUI;
+    [SerializeField] private BuildUI buildUI;
 
-   
     public enum BuildState
     {
         unActive,
@@ -16,20 +18,21 @@ public class BuildManager : MonoBehaviour
         rotate,
         endBuild // default
     }
-    private BuildState currentState = BuildState.unActive;
+    public BuildState currentState = BuildState.unActive;
     [Header("Cheat")]
     public bool isCostMaterial;
     private void Awake()
     {
         Instance = this;
-        
+
     }
     private void Start()
     {
         buildBehaviour = BuildBehaviour.Instance;
     }
     private void Update()
-    {     
+    {
+
         BuildStateTransition();
     }
     private void BuildStateTransition()
@@ -46,14 +49,23 @@ public class BuildManager : MonoBehaviour
                         SetState(BuildState.unActive);
                         break;
                     }
+
                 }
-               
+                RemoveMaterials();
+
                 buildBehaviour.CreateObject();
-                RemoveMaterials();  
                 currentState = BuildState.ObjectCreated;
                 break;
             case BuildState.ObjectCreated:
-                buildBehaviour.SetPosByRuntime();
+
+                placedObjUI.SetActive(true);
+                if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    buildBehaviour.SetPosByRuntime();
+                }
+
+
+
                 if (Input.GetMouseButtonDown(1))
                 {
                     SetState(BuildState.endBuild);
@@ -62,37 +74,46 @@ public class BuildManager : MonoBehaviour
                 {
                     SetState(BuildState.rotate);
                 }
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetKeyDown(KeyCode.C))
                 {
-                    buildBehaviour.DestroyConstruction(buildBehaviour.BuiltConstruction);   
-                    SetState(BuildState.unActive);
+                   EndBuild();
                 }
                 break;
             case BuildState.rotate:
                 buildBehaviour.RotateConstruction();
                 SetState(BuildState.ObjectCreated);
                 break;
-            case BuildState.endBuild:               
+            case BuildState.endBuild:
+
+                buildBehaviour.RemoveConstruction();    
+                if (!IsEnoughConstruction())
+                {
+                    SetState(BuildState.unActive);
+                    placedObjUI.SetActive(false);
+                    break;
+                }
                 SetState(BuildState.startBuild);
                 break;
         }
     }
 
-    private void SetState(BuildState state)
+    public void SetState(BuildState state)
     {
         currentState = state;
     }
-    public void Build(GameObject constructionPrefab, BuildState state)
+
+    // create new object and build 
+    public void Build(GameObject constructionPrefab, BuildState state = BuildState.startBuild)
     {
         SetState(state);
-       
+
         buildBehaviour.SetConstructionPrefab(constructionPrefab);
     }
    
     private bool IsEnoughMaterials()
-    {
+    {      
         List<CraftingFormula> materials = buildBehaviour.ConstrucitonPrefab.GetComponent<Construction>().construcitonData.materials;
-        Debug.Log(materials.Count);
+       
         for (int i = 0; i < materials.Count; i++)
         {
             InventoryStorage storage = InventoryManager.Instance.inventoryStorage;
@@ -100,18 +121,35 @@ public class BuildManager : MonoBehaviour
         }
         return true;
     }
-    private void RemoveMaterials()
+    private bool IsEnoughConstruction()
     {
-        List<CraftingFormula> materials = buildBehaviour.ConstrucitonPrefab.GetComponent<Construction>().construcitonData.materials;
-    
-        for (int i = 0; i < materials.Count; i++)
+        if (buildBehaviour.BuiltConstruction.TryGetComponent<GeneralItemData>(out GeneralItemData builtConstructionData))
         {
-           
-            InventoryManager.Instance.RemoveItem(materials[i].item.itemType, materials[i].amount);
+            int type = builtConstructionData.generalData.itemType;
+            if (InventoryManager.Instance.inventoryStorage.IsEnoughItem(type, 1)) return true;
         }
-      
+        return false;
+    }
+    // if have materials, remove materials, materials = null, remove that object
+    private void RemoveMaterials()
+    {       
+        if (buildBehaviour.ConstrucitonPrefab.TryGetComponent<Construction>(out Construction construction))
+        {
+            List<CraftingFormula> materials = construction.construcitonData.materials;
+            for (int i = 0; i < materials.Count; i++)
+            {
+
+                InventoryManager.Instance.RemoveItem(materials[i].item.itemType, materials[i].amount);
+            }
+        } 
 
     }
-
-
+   
+    public void EndBuild()
+    {
+        buildBehaviour.DestroyConstruction(buildBehaviour.BuiltConstruction);
+        SetState(BuildState.unActive);
+        placedObjUI.SetActive(false);
+    }
+  
 }

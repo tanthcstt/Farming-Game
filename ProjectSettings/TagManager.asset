@@ -10,6 +10,7 @@ TagManager:
   - Plant
   - Tree
   - Rock
+  - Placeable
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Plant
   - Construction
   - Vehicle
-  - 
-  - 
+  - NPC
+  - Machine
   - 
   - 
   - 

@@ -24,12 +24,30 @@ public class InventoryManager : MonoBehaviour
         }
         inventoryStorage.AddToStorage(itemData);
         inventoryUI.UpdateInventoryUI(inventoryStorage.InventoryList);
+        item.SetActive(false);
     }
 
     public void RemoveItem(int itemType, int amount)
     {
         inventoryStorage.RemoveFromStorage(itemType, amount);
         inventoryUI.UpdateInventoryUI(inventoryStorage.InventoryList);
+    }
+
+    public void UseItem(int index)
+    {
+        var item = inventoryStorage.InventoryList[index];
+        if (item == null) return;
+        if (!item.generalData.isUsableInInventory) return;
+
+      
+        if (item.generalData.isUsableInInventory)
+        {
+            // build
+            item.gameObject.SetActive(true);
+         
+            // place to ground use build system          
+            BuildManager.Instance.Build(item.gameObject,BuildManager.BuildState.startBuild);
+        }
     }
 
 }

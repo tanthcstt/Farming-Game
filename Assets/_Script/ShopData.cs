@@ -2,8 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ShopData : MonoBehaviour
+public  class ShopData : MonoBehaviour
 {
-    public abstract List<ScriptableObject_Items> GetShopList();
+
+    [SerializeField] protected List<ScriptableObject_Items> buyList;
+    [SerializeField] protected List<ScriptableObject_Items> sellList;
+    public  List<ScriptableObject_Items> GetBuyList()
+    {
+        return buyList;
+    }
+    public  List<ScriptableObject_Items> GetSellList()
+    {
+        return sellList;
+    }
    
 }

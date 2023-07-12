@@ -15,8 +15,11 @@ public class TradingManager : MonoBehaviour
         // check if enough money
         if (CoinManager.Instance.Coin >= item.price)
         {
+
+            GameObject newItem = Instantiate(item.prefab);
             // pickup
-            InventoryManager.Instance.PickUpItem(item.tradeItem);
+
+            InventoryManager.Instance.PickUpItem(newItem);
             // set coin
             CoinManager.Instance.UpdateCoin(CoinManager.Instance.Coin - item.price);    
         }
@@ -25,7 +28,12 @@ public class TradingManager : MonoBehaviour
 
     public void Sell(ScriptableObject_Items item)
     {
-        InventoryManager.Instance.RemoveItem(item.itemType, 1);
+        if (InventoryManager.Instance.inventoryStorage.IsEnoughItem(item.itemType,1))
+        {
+            InventoryManager.Instance.RemoveItem(item.itemType, 1);
+            CoinManager.Instance.UpdateCoin(CoinManager.Instance.Coin + item.price);
+        } 
+        
     }
    
    

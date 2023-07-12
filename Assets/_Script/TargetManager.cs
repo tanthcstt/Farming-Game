@@ -28,7 +28,7 @@ public class TargetManager : MonoBehaviour
     }
     // get target to tilemap to move 
     public  GameObject GetMovingTarget()
-    {
+    {       
         return mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
     }
 
@@ -58,6 +58,6 @@ public class TargetManager : MonoBehaviour
         return tilemapTarget;
     }
 
-
+   
 
 }

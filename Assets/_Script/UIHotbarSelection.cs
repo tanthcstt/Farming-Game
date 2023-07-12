@@ -6,11 +6,10 @@ public class UIHotbarSelection : MonoBehaviour
 {
     
     public Transform hotbarContent;
-
-
+       
     private void Start()
-    {      
-
+    {
+       
         AddSlotListener();
     }
     private void Update()

@@ -14,13 +14,13 @@ public class CraftingUI : ShopUI
     
     private Transform materialContent;
     protected List<Sprite> craftingSprites = new List<Sprite>();
-    private Image craftingObjImg; 
+    private Image craftingObjImg;
+   
     
     public override void Start()
     {
         base.Start();
-        ChangeDiscriptionUI();
-     
+        ChangeDiscriptionUI();        
         
     }
 
@@ -62,8 +62,8 @@ public class CraftingUI : ShopUI
     }
     public override void OnSubmit()
     {    
-        BuildManager.Instance.Build(CraftingData.SOConstructions[selectedSlot].prefab, BuildManager.BuildState.startBuild);
-        transform.parent.gameObject.SetActive(false);
+        BuildManager.Instance.Build(CraftingData.SOConstructions[selectedSlot].prefab, BuildManager.BuildState.startBuild);       
+        UIManager.Instance.ToggleUI(transform.parent.gameObject);
 
     }
 

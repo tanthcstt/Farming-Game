@@ -16,3 +16,5 @@ MonoBehaviour:
   itemName: Rock
   itemSprite: {fileID: 21300000, guid: f457f70e325276247ba73596fa32a899, type: 3}
   maxOfStack: 3
+  prefab: {fileID: 4749940127517013245, guid: 748ca274b89873247873cee26d353629, type: 3}
+  price: 0

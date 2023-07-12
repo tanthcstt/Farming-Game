@@ -14,7 +14,11 @@ public class UIInventory : MonoBehaviour
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemCount;
     private readonly int inventorySlot = 9;
- 
+
+    private void Start()
+    {
+        AddItemUIListener();
+    }
     private void SetComponent(GameObject obj)
     {        
         itemSprite = obj.transform.Find("Sprite").GetComponent<Image>();        
@@ -68,5 +72,18 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    
+   
+    private void AddItemUIListener() 
+    {
+        foreach(Transform child in transform)
+        {
+            if (child.TryGetComponent<Button>(out Button btn))
+            {
+                btn.onClick.AddListener(() =>
+                {
+                    InventoryManager.Instance.UseItem(child.GetSiblingIndex());
+                });
+            }
+        }
+    }
 }
