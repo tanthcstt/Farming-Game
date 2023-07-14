@@ -10,10 +10,15 @@ public class PlantGrowing : MonoBehaviour
     public int Level { get; private set; }
     private Transform plantGrid;
     private PlantModelToggle plantModelToggle;
-    private void Awake()
+    private void OnEnable()
     {
         SetLevel(0);
-        SetStartTime(Time.realtimeSinceStartup);    
+        SetStartTime(Time.realtimeSinceStartup);
+        plantModelToggle.SetModelByLevel(0);
+    }
+    private void Awake()
+    {
+       
         LoadComponent();
     }
     private void LoadComponent()
@@ -22,10 +27,7 @@ public class PlantGrowing : MonoBehaviour
         plantGrid = GameObject.Find("Grid/Planting").transform;
         plantModelToggle = GetComponentInChildren<PlantModelToggle>();  
     }
-    private void Start()
-    {
-        plantModelToggle.SetModelByLevel(0);
-    }
+   
 
     private void Update()
     {

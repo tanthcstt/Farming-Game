@@ -62,11 +62,11 @@ GameObject:
   - component: {fileID: -1334281021031156827}
   m_Layer: 11
   m_Name: Tomato Seed
-  m_TagString: Plant
+  m_TagString: Tomato_Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4473048524491056040
 Transform:
   m_ObjectHideFlags: 0

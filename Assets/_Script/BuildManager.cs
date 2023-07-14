@@ -84,14 +84,17 @@ public class BuildManager : MonoBehaviour
                 SetState(BuildState.ObjectCreated);
                 break;
             case BuildState.endBuild:
-
-                buildBehaviour.RemoveConstruction();    
-                if (!IsEnoughConstruction())
+                if (isCostMaterial)
                 {
-                    SetState(BuildState.unActive);
-                    placedObjUI.SetActive(false);
-                    break;
+                    buildBehaviour.RemoveConstruction();
+                    if (!IsEnoughConstruction() && !IsEnoughMaterials())
+                    {
+                        SetState(BuildState.unActive);
+                        placedObjUI.SetActive(false);
+                        break;
+                    }
                 }
+               
                 SetState(BuildState.startBuild);
                 break;
         }
@@ -111,7 +114,8 @@ public class BuildManager : MonoBehaviour
     }
    
     private bool IsEnoughMaterials()
-    {      
+    {
+       
         List<CraftingFormula> materials = buildBehaviour.ConstrucitonPrefab.GetComponent<Construction>().construcitonData.materials;
        
         for (int i = 0; i < materials.Count; i++)

@@ -54,8 +54,8 @@ public abstract class ShopUI : MonoBehaviour
     protected  void LoadImage() 
     {
         for (int i = 0; i < GetSprite().Count; i++)
-        {          
-            Transform imgTransform = content.GetChild(i).Find("Image");       
+        {
+            Transform imgTransform = content.GetChild(i).GetChild(0);    
             if (!imgTransform.TryGetComponent<Image>(out Image img)) continue;
             img.sprite = GetSprite()[i];
           

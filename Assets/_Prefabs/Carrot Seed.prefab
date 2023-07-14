@@ -15,11 +15,11 @@ GameObject:
   - component: {fileID: 393563729149830531}
   m_Layer: 11
   m_Name: Carrot Seed
-  m_TagString: Plant
+  m_TagString: Carrot_Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5618812181073712828
 Transform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public  class GestureManager : MonoBehaviour
    
     public bool IsValidTouch(RectTransform invalidRange, Touch touch)
     {
+        if (touch.phase == TouchPhase.Ended) return false;
         if (RectTransformUtility.RectangleContainsScreenPoint(invalidRange, touch.position))
         {
             return false;

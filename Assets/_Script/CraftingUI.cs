@@ -30,7 +30,7 @@ public class CraftingUI : ShopUI
         base.LoadComponent();
 
         Transform discriptionContent = transform.parent.Find("Discription/Content");
-        craftingObjImg = discriptionContent.Find("Crafting").GetComponent<Image>();
+        craftingObjImg = discriptionContent.Find("Crafting").GetChild(0).GetComponent<Image>();
         materialContent = discriptionContent.Find("MaterialContent");      
     }
 

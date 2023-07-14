@@ -11,6 +11,10 @@ TagManager:
   - Tree
   - Rock
   - Placeable
+  - Carrot_Item
+  - Tomato_Item
+  - Carrot_Seed
+  - Tomato_Seed
   layers:
   - Default
   - TransparentFX

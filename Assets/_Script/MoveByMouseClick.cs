@@ -30,15 +30,10 @@ public class MoveByMouseClick : PlayerMovement
         {
             return;
         }
-      
 
-        var targetObj = TargetManager.Instance.GetMovingTarget();
-        if (targetObj == null)
-        {
-            return;
-        }
-      
-        targetPosition = targetObj.transform.position;
+
+        targetPosition = TargetManager.Instance.GetMovingTarget();
+        if (targetPosition == Vector3.zero) return;
 
         if (!IsOnNavMeshSurface(targetPosition))
         {

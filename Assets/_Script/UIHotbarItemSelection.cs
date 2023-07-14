@@ -17,6 +17,7 @@ public class UIHotbarItemSelection : MonoBehaviour
             ActiveSelectionUI();
             isActive = true;
         }
+       
 
     }
     
@@ -35,7 +36,7 @@ public class UIHotbarItemSelection : MonoBehaviour
     {
         for (int i = 0; i < UIContent.childCount; i++)
         {
-            Image image = UIContent.GetChild(i).GetComponent<Image>();
+            Image image = UIContent.GetChild(i).GetChild(0).GetComponent<Image>();
             if (i < items.Count)
             {
                 Sprite sprite = items[i].itemSprite;               

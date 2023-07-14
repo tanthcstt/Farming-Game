@@ -26,8 +26,8 @@ public abstract class PlayerMovement : MonoBehaviour
         {
             Move();
         }
-         
-      
+
+
     }
 
     public abstract void Move();

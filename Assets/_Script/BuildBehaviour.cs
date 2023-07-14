@@ -6,7 +6,7 @@ using UnityEngine;
 public class BuildBehaviour : MonoBehaviour
 {
     public static BuildBehaviour Instance { get; private set; }
-    private readonly float heightOffset = 0.5f;
+  
     public GameObject ConstrucitonPrefab { get; private set; }
     public GameObject BuiltConstruction { get; private set; }
 
@@ -30,12 +30,12 @@ public class BuildBehaviour : MonoBehaviour
         BuiltConstruction = Instantiate(ConstrucitonPrefab,playerTransform.position + Vector3.forward*3, Quaternion.identity,ConstructionParent);
     }
     public void SetPosByRuntime()
-    {
-        GameObject target = TargetManager.Instance.mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
-        if (target == null) return;
-        Vector3 pos = target.transform.position;
-        pos.y += heightOffset;
-        BuiltConstruction.transform.position = pos;
+    {        
+        Vector3 targetPos = TargetManager.Instance.mouseTarget.MouseTargetPos(LayerMask.GetMask("Base"));
+        targetPos = Vector3Int.RoundToInt(targetPos); 
+        if (targetPos == Vector3.zero) return;
+      
+        BuiltConstruction.transform.position = targetPos;
     }
   
    

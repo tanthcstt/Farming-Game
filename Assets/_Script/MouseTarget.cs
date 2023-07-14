@@ -6,13 +6,13 @@ using UnityEngine;
 public class MouseTarget : MonoBehaviour
 {
     
-    public GameObject MouseTargetObj(LayerMask layer)
+    public Vector3 MouseTargetPos(LayerMask layer)
     {
         Ray ray;
         if (Application.platform == RuntimePlatform.Android)
         {
              ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            if (GestureManager.Instance.IsTouchOverUIObject()) return null;
+            if (GestureManager.Instance.IsTouchOverUIObject()) return Vector3.zero;
 
         }
         else 
@@ -20,7 +20,7 @@ public class MouseTarget : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         }
         Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity,layer, QueryTriggerInteraction.Collide);
-        return (hit.collider == null) ? null : hit.collider.gameObject;
+        return (hit.collider == null) ? Vector3.zero : hit.point;
         
     }
 

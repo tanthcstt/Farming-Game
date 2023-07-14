@@ -8,7 +8,7 @@ public class TargetManager : MonoBehaviour
     public static TargetManager Instance { get; private set; }
   
     private GameObject destroyableObjTarget;
-    private GameObject tilemapTarget;
+    private Vector3 tilemapTargetPos;
  
     private readonly string[] destroyableLayer = { "Destroyable_Env"};    
     private readonly float targetRange = 3f;
@@ -27,9 +27,9 @@ public class TargetManager : MonoBehaviour
      
     }
     // get target to tilemap to move 
-    public  GameObject GetMovingTarget()
+    public Vector3 GetMovingTarget()
     {       
-        return mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
+        return mouseTarget.MouseTargetPos(LayerMask.GetMask("Base"));
     }
 
     public GameObject GetInteractiveTarget(LayerMask layer)
@@ -46,16 +46,16 @@ public class TargetManager : MonoBehaviour
 
     
 
-    public GameObject GetTileMapTarget()
+    public Vector3 GetTileMapTarget()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            tilemapTarget = mouseTarget.MouseTargetObj(LayerMask.GetMask("Base"));
+            tilemapTargetPos = mouseTarget.MouseTargetPos(LayerMask.GetMask("Base"));
         } else if (InputManager.Instance.IsMovingKeyPress())
         {
-            tilemapTarget = playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+            tilemapTargetPos = playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
         }
-        return tilemapTarget;
+        return tilemapTargetPos;
     }
 
    

@@ -26,7 +26,7 @@ public class AbilityPlanting : PlayerAbility
     private void Plant()
     {
 
-        targeting = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+        targeting = TargetManager.Instance.playerTarget.DownwardObjectTarget(LayerMask.GetMask("Base"));
         if (targeting == null) return;
         // is valid target
         if (IsPlanted()) return;
@@ -37,24 +37,17 @@ public class AbilityPlanting : PlayerAbility
         if (!InventoryManager.Instance.inventoryStorage.IsEnoughItem(seedBagType, 1)) return;
         seedPrefab = seedSelection.GetSelectedItem().prefab.GetComponent<GeneralItemData>().generalData.prefab;
         
-        // place plant
-        PlaceObj(GetPosition(targeting));
+        // place plant       
+        PlaceObj(targeting.transform.position);
 
         //remove seeds
         InventoryManager.Instance.RemoveItem(seedBagType, 1);
     }
 
-    private Vector3 GetPosition(GameObject tile)
-    {
-        Vector3 pos = tile.transform.position;
-        pos.y = 0.5f;
-        return pos;
-    }
+  
     private void PlaceObj(Vector3 pos)
     {
-        GameObject plantingObj = Instantiate(seedPrefab,pos,Quaternion.identity,plantingGrid);
-
-        //plantingObj.transform.position = pos;
+        ObjectPooling.Instance.Spawn(seedPrefab.gameObject,pos);        
     }
   
     private bool IsPlanted()

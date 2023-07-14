@@ -14,13 +14,19 @@ public class PlayerTarget : MonoBehaviour
     }
 
 
-    public GameObject DownwardTarget(LayerMask layer)
+    public Vector3 DownwardTarget(LayerMask layer)
     {
         Ray ray = new Ray(playerEyes.position, -playerEyes.up);
         Physics.Raycast(ray, out RaycastHit hit, 3f, layer, QueryTriggerInteraction.Collide);
-        return (hit.collider == null) ? null : hit.collider.gameObject;
+        return hit.point;
     }
+    public GameObject DownwardObjectTarget(LayerMask layer)
+    {
+        Ray ray = new Ray(playerEyes.position, -playerEyes.up);
+        Physics.Raycast(ray, out RaycastHit hit, 3f, layer, QueryTriggerInteraction.Collide);
 
+        return (hit.collider) ? hit.collider.gameObject : null;
+    }
     public GameObject TargetToPoint(Vector3 point, LayerMask layer) 
     {
         Ray ray = new Ray(playerEyes.position, point - playerEyes.position);

@@ -15,8 +15,7 @@ public class AbilityHarvest : AbilityDestroying
     }
     protected override void SetTarget()
     {
-        target = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Plant"));
-
+        target = TargetManager.Instance.playerTarget.DownwardObjectTarget(LayerMask.GetMask("Plant"));
     }
        
     private void Harvest()
@@ -31,13 +30,13 @@ public class AbilityHarvest : AbilityDestroying
     }
     private void RemoveGrownPlant()
     {
-        target.SetActive(false);
+        ObjectPooling.Instance.Despawn(target);
     }
 
     private void DropItem(PlantData planData)
     {
-        GameObject drop = Instantiate(planData.generalData.dropItem);
-        drop.transform.position = target.transform.position;
+        ObjectPooling.Instance.Spawn(planData.generalData.dropItem, target.transform.position);
+      
     }
     private bool IsValidTarget()
     {

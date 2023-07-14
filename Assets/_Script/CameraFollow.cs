@@ -41,10 +41,10 @@ public class CameraControl : MonoBehaviour
         
         float scroll = (Application.platform == RuntimePlatform.Android)? pinch.PinchMagnitude: Input.GetAxis("Mouse ScrollWheel");
               
-        if (scroll != 0.0f)
+        if (scroll != 0)
         {
             Vector3 increaseAxis = new Vector3(0, -1, 1);
-            Vector3 newOffset = offset + ((scroll > 0) ? increaseAxis * 2 : -increaseAxis * 2);
+            Vector3 newOffset = offset + ((scroll > 0) ? increaseAxis : -increaseAxis);
             if (Vector3.Distance(following.position + newOffset, following.position) >= maxDistance) return;
             if (Vector3.Distance(following.position + newOffset, following.position) <= minDistance) return;
             offset = newOffset;

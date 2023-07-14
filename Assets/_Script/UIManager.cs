@@ -27,8 +27,7 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleUI(GameObject UI)
     {
-        UI.SetActive(!UI.activeSelf);
-        joystickUI.SetActive(!UI.activeSelf);
+        UI.SetActive(!UI.activeSelf);       
     }
    
   

@@ -25,7 +25,7 @@ public class AbilityHoeing : PlayerAbility
     {
 
 
-        target = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+        target = TargetManager.Instance.playerTarget.DownwardObjectTarget(LayerMask.GetMask("Base"));
 
         if (target == null) return;
         if (target.CompareTag("Grass"))
@@ -35,19 +35,21 @@ public class AbilityHoeing : PlayerAbility
             // hoeing
             StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Hoeing, () =>
             {
-                PlayerHoeing(target);
+                Vector3 targetPos = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
+                PlayerHoeing(Vector3Int.RoundToInt(targetPos));
             }));
 
         }     
                 
     }
-    private void PlayerHoeing(GameObject targeting)
+    private void PlayerHoeing(Vector3Int pos)
     {
        
         GameObject cultivatedLand = Instantiate(cultivatedLand_Prefabs);
-        Vector3 pos = new Vector3(targeting.transform.position.x, 0.5f, targeting.transform.position.z);
+       
         cultivatedLand.transform.position = pos;
         cultivatedLand.transform.SetParent(baseTile, true);
+
         playerMovement.ForceStop(false);
        
     }
