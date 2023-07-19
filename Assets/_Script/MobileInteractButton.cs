@@ -16,7 +16,9 @@ public class MobileInteractButton : MonoBehaviour
     [Header("Interaction Icon")]
     [SerializeField] private Sprite openDoor;
     [SerializeField] private Sprite getOnBoat;
+    [SerializeField] private Sprite getOffBoat;
     [SerializeField] private Sprite trading;
+    [SerializeField] private Sprite crafting;
     void Start()
     {
         prevAbilityIndex = -1;
@@ -38,7 +40,7 @@ public class MobileInteractButton : MonoBehaviour
     }
     private void Interact()
     {      
-        if (playerInteraction.Target == null)
+        if (playerInteraction.CurrentType == PlayerInteraction.InteractionType.useAbility)
         {
             playerAbilityManager.UseAbility();           
         } else
@@ -70,6 +72,12 @@ public class MobileInteractButton : MonoBehaviour
                 break;
             case PlayerInteraction.InteractionType.Trading:
                 btnImage.sprite = trading;
+                break;
+            case PlayerInteraction.InteractionType.Crafting:
+                btnImage.sprite = crafting;
+                break;
+            case PlayerInteraction.InteractionType.BoatDriving:
+                btnImage.sprite = getOffBoat;
                 break;
         }
     }

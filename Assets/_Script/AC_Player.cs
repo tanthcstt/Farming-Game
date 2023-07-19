@@ -12,10 +12,12 @@ public class AC_Player : MonoBehaviour
     public readonly float CollectingTime = 3f;
     public readonly float MiningTime = 3f;
     public readonly float HoeingTime = 3f;
+    public readonly float TreeCuttingTime = 3f;
 
     [Header("Animation tools")]
     public GameObject hoe;
     public GameObject pickaxe;
+    public GameObject axe;
 
     private bool isEndState = true;
 
@@ -26,6 +28,7 @@ public class AC_Player : MonoBehaviour
         Collecting,
         Hoeing,
         Mining,
+        TreeCutting,
     }
     private State currentState = State.Idle;    
 
@@ -76,6 +79,13 @@ public class AC_Player : MonoBehaviour
                 isEndState = true;
                 currentState = State.Idle;
                 break;
+
+            case State.TreeCutting:
+                isEndState = false;
+                yield return new WaitForSeconds(TreeCuttingTime);
+                isEndState = true;
+                currentState = State.Idle;
+                break;
             case State.Hoeing:
                 isEndState = false;
                 yield return new WaitForSeconds(HoeingTime);
@@ -97,6 +107,7 @@ public class AC_Player : MonoBehaviour
                 controller.SetBool("isHoeing", false);
                 hoe.SetActive(false);
                 pickaxe.SetActive(false);
+                axe.SetActive(false);   
                 break;
 
             case State.Walking:
@@ -111,6 +122,10 @@ public class AC_Player : MonoBehaviour
                 controller.SetBool("isMining", true);
                 pickaxe.SetActive(true);
                 break;
+            case State.TreeCutting:
+                controller.SetBool("isMining", true);
+                axe.SetActive(true);
+                break;
 
             case State.Hoeing:
                 controller.SetBool("isHoeing", true);
@@ -121,6 +136,8 @@ public class AC_Player : MonoBehaviour
 
     public IEnumerator WaitForAnimationEnd(State state, Action callback)
     {
+        playerMovement.ForceStop(true);
+
         if (currentState == state) yield break;
         currentState = state;
         while(currentState == state)
@@ -128,5 +145,7 @@ public class AC_Player : MonoBehaviour
             yield return null;  
         }
         callback.Invoke();
+
+        playerMovement.ForceStop(false);
     }
 }

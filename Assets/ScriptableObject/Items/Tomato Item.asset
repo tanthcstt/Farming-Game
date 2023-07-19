@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 5
   itemName: Tomato
-  itemSprite: {fileID: 21300000, guid: 4c1bff1326e41e047b0d1f22ca22c293, type: 3}
+  itemSprite: {fileID: 21300000, guid: dfd7030f31acbbc4fa88d61bc4446a7c, type: 3}
   maxOfStack: 3
+  isUsableInInventory: 0
   prefab: {fileID: 3015086743849370323, guid: 212873aa1948a4a33a87d5f0d8518ac8, type: 3}
   price: 0

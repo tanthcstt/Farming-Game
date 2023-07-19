@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 4
   itemName: Carrot Seed
-  itemSprite: {fileID: 21300000, guid: 02482987e5a59ca4f93789963ef45f9b, type: 3}
+  itemSprite: {fileID: 21300000, guid: 18f20a03f4d442d48b941d5cc0e620f0, type: 3}
   maxOfStack: 10
+  isUsableInInventory: 0
   prefab: {fileID: 1657809022809930581, guid: 2d811a51190cde5448e941e6e8e02df3, type: 3}
   price: 0

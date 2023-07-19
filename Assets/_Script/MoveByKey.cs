@@ -11,7 +11,7 @@ public class MoveByKey : PlayerMovement
     private float horizontal;
     private float vertical;
     private Vector3 direction;
-    [SerializeField] private FixedJoystick joyStick;
+   
     public override void Move()
     {
         if (Application.platform == RuntimePlatform.Android)

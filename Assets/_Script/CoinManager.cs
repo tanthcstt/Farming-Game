@@ -12,10 +12,7 @@ public class CoinManager : MonoBehaviour
         Instance = this;    
     }
 
-    private void Start()
-    {
-        UpdateCoin(100);
-    }
+   
 
     public void UpdateCoin(int coin)
     {

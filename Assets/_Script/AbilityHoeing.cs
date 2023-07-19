@@ -44,11 +44,8 @@ public class AbilityHoeing : PlayerAbility
     }
     private void PlayerHoeing(Vector3Int pos)
     {
-       
-        GameObject cultivatedLand = Instantiate(cultivatedLand_Prefabs);
-       
-        cultivatedLand.transform.position = pos;
-        cultivatedLand.transform.SetParent(baseTile, true);
+
+        ObjectPooling.Instance.Spawn(cultivatedLand_Prefabs, pos);      
 
         playerMovement.ForceStop(false);
        

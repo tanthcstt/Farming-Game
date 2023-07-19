@@ -6,19 +6,16 @@ public class ObjectPooling : MonoBehaviour
 {
     public static ObjectPooling Instance { get; private set; }
     [SerializeField] protected List<GameObject> poolingPrefabs = new List<GameObject>();
-    [SerializeField] protected Transform poolTransform;
+    public Transform poolTransform;
     [SerializeField] protected int initNumber = 1;
     protected Dictionary<string, Queue<GameObject>> poolingData = new Dictionary<string, Queue<GameObject>>();
     private void Awake()
     {
         Instance = this;
-      
-    }
-
-    private void Start()
-    {
         Init();
     }
+
+
 
     protected void Init()
     {
@@ -42,7 +39,7 @@ public class ObjectPooling : MonoBehaviour
         obj.SetActive(false);
     }
 
-
+   
     public GameObject Spawn(GameObject prefab, Vector3 pos = default(Vector3),bool isReturnObject = false)
     {
         GameObject obj;
@@ -61,5 +58,14 @@ public class ObjectPooling : MonoBehaviour
         return isReturnObject ? obj : null; 
 
     }
-
+    
+    public GameObject GetPoolingPrefab(string tag)
+    {
+        foreach(GameObject item in poolingPrefabs)
+        {
+            if (item.tag == tag) return item;   
+        }
+        Debug.Log("can not find pooling prefab " + tag);
+        return null;
+    }
 }

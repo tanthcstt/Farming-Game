@@ -5,6 +5,8 @@ using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+[System.Serializable]
 public class InventoryStorage : MonoBehaviour
 {
 

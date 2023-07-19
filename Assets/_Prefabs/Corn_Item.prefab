@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2434636217044256778}
   - component: {fileID: 2162548088759217384}
   - component: {fileID: 2872591062056669638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crop_corn_single_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8691518338436587680}
   m_RootOrder: 0
@@ -51,10 +52,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2453303149903425866
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +94,7 @@ GameObject:
   - component: {fileID: 1432170301353959480}
   - component: {fileID: 6679735509801124491}
   - component: {fileID: 7569194998895901644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crop_corn_single_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +111,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8691518338436587680}
   m_RootOrder: 2
@@ -130,10 +135,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -158,6 +165,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4718004959523180920
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +177,7 @@ GameObject:
   - component: {fileID: 1943042773473111692}
   - component: {fileID: 8570168094915070355}
   - component: {fileID: 3379220357814296015}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: crop_corn_single_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8691518338436587680}
   m_RootOrder: 1
@@ -209,10 +218,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -237,6 +248,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8346763634927352346
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,9 +259,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8691518338436587680}
   - component: {fileID: 4522852386460456913}
-  m_Layer: 0
-  m_Name: crop_corn_single
-  m_TagString: Untagged
+  - component: {fileID: -5806242127085346757}
+  - component: {fileID: 7342441002330918036}
+  - component: {fileID: 8486640576437243413}
+  m_Layer: 8
+  m_Name: Corn_Item
+  m_TagString: Corn_Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,6 +279,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2434636217044256778}
   - {fileID: 1943042773473111692}
@@ -298,3 +314,66 @@ LODGroup:
     renderers:
     - renderer: {fileID: 7569194998895901644}
   m_Enabled: 1
+--- !u!64 &-5806242127085346757
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346763634927352346}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 968743942557137958, guid: 3de7988b3996f4b4a935bb68eef1e313, type: 3}
+--- !u!54 &7342441002330918036
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346763634927352346}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8486640576437243413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346763634927352346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9169412cf407da642a6d7a2c1cb15dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generalData: {fileID: 11400000, guid: 7abcac051174795458ae4de6a682a813, type: 2}
+  count: 0

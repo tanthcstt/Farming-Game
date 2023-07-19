@@ -8,13 +8,17 @@ public class PlantGrowing : MonoBehaviour
     private bool isWatered = false; 
     private PlantData plantData;
     public int Level { get; private set; }
-    private Transform plantGrid;
+
     private PlantModelToggle plantModelToggle;
     private void OnEnable()
     {
-        SetLevel(0);
+        StartGrowing();
+    }
+    public void StartGrowing(int level = 0)
+    {
+        SetLevel(level);
         SetStartTime(Time.realtimeSinceStartup);
-        plantModelToggle.SetModelByLevel(0);
+        plantModelToggle.SetModelByLevel(level);
     }
     private void Awake()
     {
@@ -23,15 +27,15 @@ public class PlantGrowing : MonoBehaviour
     }
     private void LoadComponent()
     {
-        plantData = GetComponent<PlantData>();
-        plantGrid = GameObject.Find("Grid/Planting").transform;
+        plantData = GetComponent<PlantData>();       
         plantModelToggle = GetComponentInChildren<PlantModelToggle>();  
     }
    
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Growing();     
+        Growing();
+       
     }
  
     private void Growing()
@@ -54,7 +58,7 @@ public class PlantGrowing : MonoBehaviour
     {
         startGrowingTime = time;
     }
-    private void SetLevel(int level)
+    public void SetLevel(int level)
     {
         Level = level;
     }
@@ -62,4 +66,6 @@ public class PlantGrowing : MonoBehaviour
     {
         isWatered = true;
     }
+
+    
 }

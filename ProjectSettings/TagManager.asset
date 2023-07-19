@@ -15,6 +15,20 @@ TagManager:
   - Tomato_Item
   - Carrot_Seed
   - Tomato_Seed
+  - Crafting Table
+  - Farming Shop
+  - Machine Shop
+  - Fence Door
+  - Fence
+  - Corn_Item
+  - Corn Seed
+  - Potato Item
+  - Potato Seed
+  - Wheat Item
+  - Wheat Seed
+  - Cabage Item
+  - Cabage Seed
+  - Boat
   layers:
   - Default
   - TransparentFX
@@ -32,7 +46,7 @@ TagManager:
   - Vehicle
   - NPC
   - Machine
-  - 
+  - Interactable Object
   - 
   - 
   - 

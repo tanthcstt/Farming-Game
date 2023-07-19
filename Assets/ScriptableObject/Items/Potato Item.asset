@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612d0058481ad034c9fdd69f40474533, type: 3}
+  m_Name: Potato Item
+  m_EditorClassIdentifier: 
+  itemType: 11
+  itemName: Potato
+  itemSprite: {fileID: 21300000, guid: c0ef25a9fb794ec45b90804656eba893, type: 3}
+  maxOfStack: 5
+  isUsableInInventory: 0
+  prefab: {fileID: 2437493758151136308, guid: 391f861922bfb4336a8e13f44a66592f, type: 3}
+  price: 5

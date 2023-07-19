@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class MoveByMouseClick : PlayerMovement
 {
     protected Vector3 targetPosition;
-    [SerializeField] private RectTransform joystick;
+    [SerializeField] private RectTransform joystickRecTransform;
     
     
     public override void Move()
@@ -17,7 +17,7 @@ public class MoveByMouseClick : PlayerMovement
         bool isValidInput;
         if (Application.platform == RuntimePlatform.Android)
         {
-            isValidInput = (Input.touchCount > 0 && GestureManager.Instance.IsValidTouch(joystick, Input.GetTouch(0)));
+            isValidInput = (Input.touchCount > 0 && GestureManager.Instance.IsValidTouch(joystickRecTransform, Input.GetTouch(0)));
             if (!isValidInput) return;
            
         }

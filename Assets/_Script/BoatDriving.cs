@@ -4,22 +4,25 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 
+
 public class BoatDriving : MonoBehaviour
 {
     private CameraControl cameraControl;
-    public float maxSpeed = 20f;    
+    public float maxSpeed = 20f;
+    public float turnSpeed = 50;
+    public float acceleration = 350f; // Acceleration when moving  
 
-    public float acceleration = 15f; // Acceleration when moving  
-
-    public float turnSpeed = 50f;
+    
     private bool isGetOn = false;   
     
     private Transform motorTransform;
     private ParticleSystem[] particleSystems;
     private Bouyancy bouyancy;
-    private GameObject player;
- 
+    protected GameObject player;  
     private Rigidbody rb;
+    private FixedJoystick joystick;
+
+   
     private void Start()
     {
         LoadComponent();    
@@ -34,18 +37,23 @@ public class BoatDriving : MonoBehaviour
         Transform effectTransform = transform.Find("Effect");
         particleSystems = new ParticleSystem[effectTransform.childCount];
         bouyancy = GetComponent<Bouyancy>();
+        joystick = GameObject.Find("UI/Fixed Joystick").GetComponent<FixedJoystick>();
+       
         for (int i = 0; i < effectTransform.childCount; i++)
         {
             if (effectTransform.GetChild(i).TryGetComponent(out ParticleSystem particle))
             {
                 particleSystems[i] = particle;
+               
             }
         }
     }
+   
+
     public void GetOn(GameObject player)
     {
         isGetOn = true;
-        this.player = player;   
+        this.player = player;
         player.SetActive(false);
         cameraControl.ChangeFollowing(transform);
 
@@ -82,6 +90,12 @@ public class BoatDriving : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            x = joystick.Horizontal;
+            z = joystick.Vertical;
+        }
+
         // Calculate the desired movement direction based on input
         Vector3 desiredVelocity = z * transform.forward;
 
@@ -99,7 +113,10 @@ public class BoatDriving : MonoBehaviour
            
             ToggleParticleSystems(true);
         }
-        else ToggleParticleSystems(false);
+        else
+        {
+            ToggleParticleSystems(false);
+        }
 
         // Rotate the boat
         Quaternion deltaRotation = Quaternion.Euler(Vector3.up * turnSpeed * x * Time.fixedDeltaTime);
@@ -118,4 +135,6 @@ public class BoatDriving : MonoBehaviour
             else particle.Stop();
         }
     }
+
+
 }

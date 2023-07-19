@@ -9,7 +9,7 @@ public class PlayerTarget : MonoBehaviour
     public GameObject ForwardTarget(LayerMask layer)
     {     
         Ray ray = new Ray(playerEyes.position, playerEyes.forward);
-        Physics.Raycast(ray, out RaycastHit hit, 3f,layer);
+        Physics.Raycast(ray, out RaycastHit hit, 5f,layer);
         return (hit.collider == null) ? null : hit.collider.gameObject;
     }
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 3
   itemName: Carrot
-  itemSprite: {fileID: 21300000, guid: b3ee4299d30882046981d33259ddb3c4, type: 3}
+  itemSprite: {fileID: 21300000, guid: 7efb56f623bb49b45a2b4d7025b8da67, type: 3}
   maxOfStack: 2
   isUsableInInventory: 0
   prefab: {fileID: 5443870293716321220, guid: 8d43668a7805940969dfc1102ec90f09, type: 3}
