@@ -45,4 +45,5 @@ public class SettingUI : MonoBehaviour
         volumeSlider.value = audioSourceContent.GetComponentInChildren<AudioSource>().volume;
         FOVSlider.value = 0.5f;
     }
+    ///
 }
