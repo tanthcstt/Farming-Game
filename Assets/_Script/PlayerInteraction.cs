@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     private readonly string[] interactableLayer = { "Construction", "Vehicle", "NPC", "Interactable Object" };
     public GameObject Target { get; private set; }
     [SerializeField] protected MoveByMouseClick playerMovement;
+
     public enum InteractionType
     {
         useAbility,
@@ -14,8 +16,6 @@ public class PlayerInteraction : MonoBehaviour
         GetOnBoat,
         BoatDriving,
         Trading, 
-        Crafting,
-
        
     }
     private BoatDriving boat;
@@ -24,7 +24,7 @@ public class PlayerInteraction : MonoBehaviour
     {
        
         SetTarget();
-        SetType();
+        UpdateType();
     }
     
     private void SetTarget()
@@ -65,13 +65,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     UIManager.Instance.ToggleUI(UIManager.Instance.machineShop);
                 }
-                break;
-
-            case InteractionType.Crafting:
-                playerMovement.ForceStop(true);
-                UIManager.Instance.ToggleUI(UIManager.Instance.craftingUI);                
-                UIManager.Instance.ToggleUI(UIManager.Instance.joystickUI);                
-                break;
+                break;           
 
             default:              
                 break;
@@ -81,7 +75,7 @@ public class PlayerInteraction : MonoBehaviour
        
     }
     // set type by runtime
-    private void SetType()
+    private void UpdateType()
     {
        
         if (Target == null)
@@ -104,12 +98,10 @@ public class PlayerInteraction : MonoBehaviour
 
         } else if (layerName == "Interactable Object")
         {
-
-            if (Target.CompareTag("Crafting Table"))
-            {
-                CurrentType = InteractionType.Crafting;
-            }
+           
         } 
 
     }
+  
+   
 }

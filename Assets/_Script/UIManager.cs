@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject placeObjUI;
     public GameObject joystickUI;
     public GameObject machineShop;
+    public GameObject inventoryUI;
     private void Awake()
     {
         Instance = this;    
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
         craftingUI.SetActive(false);
         placeObjUI.SetActive(false);
         machineShop.SetActive(false);
+        inventoryUI.SetActive(false);   
     }
     private void Update()
     {

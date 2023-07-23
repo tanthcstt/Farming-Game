@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 2
   itemName: Auto Watering
-  itemSprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  itemSprite: {fileID: 21300000, guid: 8aebcb946f0232c4ba34cacabff63dbb, type: 3}
   maxOfStack: 10
   isUsableInInventory: 1
   prefab: {fileID: 8444201783200559623, guid: 388c5374702206e4eb4ef9f3d6a89f06, type: 3}

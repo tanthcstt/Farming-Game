@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShopUI_Buy : ShopUI
 {
+   
     protected List<Sprite> sprites = new List<Sprite>();
     public ShopData shopData;
     protected List<ScriptableObject_Items> buyList;

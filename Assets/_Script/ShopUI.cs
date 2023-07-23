@@ -10,8 +10,9 @@ public abstract class ShopUI : MonoBehaviour
     protected Button submitBtn;
     protected TextMeshProUGUI price;
     protected Transform content;
-   
-
+    [SerializeField] protected Sprite selectedUI;
+    [SerializeField] protected Sprite unSelectedUI;
+    protected int prevSelection = 0;   
     protected int selectedSlot = 0;
    
    
@@ -19,7 +20,8 @@ public abstract class ShopUI : MonoBehaviour
     {
         LoadComponent();
         AddListener();
-        LoadImage();       
+        LoadImage();
+        UpdateSelectedUI(0);
 
     }
     public virtual void LoadComponent()
@@ -38,14 +40,36 @@ public abstract class ShopUI : MonoBehaviour
         {
             if (slot.TryGetComponent<Button>(out Button btn))
             {
-                btn.onClick.AddListener(delegate { SelectItem(slot.GetSiblingIndex()); UpdatePriceButton();});  
+                btn.onClick.AddListener(delegate {
+
+                    int slotIndex = slot.GetSiblingIndex();
+                    SelectItem(slotIndex); 
+                    UpdatePriceButton();
+                    UpdateSelectedUI(slotIndex);
+                    
+                });  
             }
         }
+    }
+    protected void UpdateSelectedUI(int currentSelection)
+    {        
+
+        if (content.GetChild(prevSelection).TryGetComponent<Image>(out Image prevImg))
+        {
+            prevImg.sprite = unSelectedUI;
+        }
+
+        if (content.GetChild(currentSelection).TryGetComponent<Image>(out Image currentImg))
+        {
+            currentImg.sprite = selectedUI;
+        }
+
+        prevSelection = currentSelection;
     }
     public virtual void SelectItem(int selectedSlot)
     {
         if (selectedSlot >= GetSprite().Count) return;
-        this.selectedSlot = selectedSlot;        
+        this.selectedSlot = selectedSlot;       
     }
     public virtual void UpdatePriceButton()
     {

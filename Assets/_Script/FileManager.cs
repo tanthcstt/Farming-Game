@@ -28,4 +28,18 @@ public static class FileManager
     {
         return FilePaths[WorldID];  
     }
+
+    public static void DeleteFileByIndex(int worldID)
+    {
+        File.Delete(FilePaths[worldID]);
+         
+    }
+    public static void RemovePath(int worldID)
+    {
+        FilePaths.RemoveAt(worldID);
+    }
+    public static string GetFileName(int worldID)
+    {
+        return Path.GetFileNameWithoutExtension(FilePaths[worldID]);    
+    }
 }

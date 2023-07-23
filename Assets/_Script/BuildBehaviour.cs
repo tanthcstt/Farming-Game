@@ -26,8 +26,8 @@ public class BuildBehaviour : MonoBehaviour
         BuiltConstruction.transform.rotation *= rotation;
     }
     public void CreateObject()
-    {
-        BuiltConstruction = Instantiate(ConstrucitonPrefab,playerTransform.position + Vector3.forward*3, Quaternion.identity,ConstructionParent);
+    {        
+        BuiltConstruction = ObjectPooling.Instance.Spawn(ConstrucitonPrefab, playerTransform.position + Vector3.forward * 3, true);
     }
     public void SetPosByRuntime()
     {        
@@ -41,7 +41,7 @@ public class BuildBehaviour : MonoBehaviour
    
     public void DestroyConstruction(GameObject construction)
     {
-        Destroy(construction);
+        ObjectPooling.Instance.Despawn(construction);   
     }
     public void SetConstructionPrefab(GameObject constructionPrefab)
     {

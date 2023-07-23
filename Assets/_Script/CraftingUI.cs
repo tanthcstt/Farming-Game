@@ -62,9 +62,8 @@ public class CraftingUI : ShopUI
     }
     public override void OnSubmit()
     {    
-        BuildManager.Instance.Build(CraftingData.SOConstructions[selectedSlot].prefab, BuildManager.BuildState.startBuild);       
-        UIManager.Instance.ToggleUI(transform.parent.gameObject);
-
+        BuildManager.Instance.Build(CraftingData.SOConstructions[selectedSlot].prefab, BuildManager.BuildState.startBuild);      
+       
     }
 
     protected override int GetPrice(int index)

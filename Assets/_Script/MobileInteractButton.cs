@@ -13,12 +13,13 @@ public class MobileInteractButton : MonoBehaviour
     private static int prevAbilityIndex;
     [Header("Ability icons")]
     public List<Sprite> abilityIcons;
+
     [Header("Interaction Icon")]
     [SerializeField] private Sprite openDoor;
     [SerializeField] private Sprite getOnBoat;
     [SerializeField] private Sprite getOffBoat;
     [SerializeField] private Sprite trading;
-    [SerializeField] private Sprite crafting;
+
     void Start()
     {
         prevAbilityIndex = -1;
@@ -73,9 +74,7 @@ public class MobileInteractButton : MonoBehaviour
             case PlayerInteraction.InteractionType.Trading:
                 btnImage.sprite = trading;
                 break;
-            case PlayerInteraction.InteractionType.Crafting:
-                btnImage.sprite = crafting;
-                break;
+          
             case PlayerInteraction.InteractionType.BoatDriving:
                 btnImage.sprite = getOffBoat;
                 break;

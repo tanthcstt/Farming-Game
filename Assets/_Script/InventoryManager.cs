@@ -47,6 +47,12 @@ public class InventoryManager : MonoBehaviour
          
             // place to ground use build system          
             BuildManager.Instance.Build(item.gameObject,BuildManager.BuildState.startBuild);
+
+            // hide inventory UI
+            UIManager.Instance.ToggleUI(UIManager.Instance.inventoryUI);
+
+            // turn on joystick
+            UIManager.Instance.ToggleUI(UIManager.Instance.joystickUI);
         }
     }
 

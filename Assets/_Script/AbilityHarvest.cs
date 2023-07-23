@@ -8,9 +8,11 @@ public class AbilityHarvest : AbilityDestroying
     {
         SetTarget();
         if (!IsValidTarget()) return;
+       
         StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Collecting, () =>
         {
             Harvest();
+           
         }));
     }
     protected override void SetTarget()

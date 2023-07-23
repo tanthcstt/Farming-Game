@@ -19,6 +19,7 @@ public class BuildManager : MonoBehaviour
         endBuild // default
     }
     public BuildState currentState = BuildState.unActive;
+
     [Header("Cheat")]
     public bool isCostMaterial;
     private void Awake()
@@ -41,44 +42,43 @@ public class BuildManager : MonoBehaviour
         {
             case BuildState.unActive:
                 break;
+
             case BuildState.startBuild:
-                if (isCostMaterial) // use cheat
+                if (isCostMaterial) // cheat here
                 {
                     if (!IsEnoughMaterials())
                     {
                         SetState(BuildState.unActive);
                         break;
-                    }
-
+                    }                 
+                    RemoveMaterials();
                 }
-                RemoveMaterials();
-
-                buildBehaviour.CreateObject();
+                UIManager.Instance.craftingUI.SetActive(false); // fix bug
+                UIManager.Instance.joystickUI.SetActive(true);// fix bug joystick ui hide
+                buildBehaviour.CreateObject();             
                 currentState = BuildState.ObjectCreated;
                 break;
+
             case BuildState.ObjectCreated:
 
                 placedObjUI.SetActive(true);
+
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     buildBehaviour.SetPosByRuntime();
                 }
 
+                if (Application.platform == RuntimePlatform.WindowsEditor ||
+                    Application.platform == RuntimePlatform.WindowsPlayer)
+                {
 
-
-                if (Input.GetMouseButtonDown(1))
-                {
-                    SetState(BuildState.endBuild);
-                }
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    SetState(BuildState.rotate);
-                }
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                   EndBuild();
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        SetState(BuildState.endBuild);
+                    }
                 }
                 break;
+
             case BuildState.rotate:
                 buildBehaviour.RotateConstruction();
                 SetState(BuildState.ObjectCreated);
@@ -91,10 +91,10 @@ public class BuildManager : MonoBehaviour
                     {
                         SetState(BuildState.unActive);
                         placedObjUI.SetActive(false);
+                        UIManager.Instance.joystickUI.SetActive(true);
                         break;
                     }
-                }
-               
+                }       
                 SetState(BuildState.startBuild);
                 break;
         }

@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class LoadScenceManager : MonoBehaviour
 {
     public static LoadScenceManager Instance { get; private set; }
-
+    [SerializeField] protected GameObject loadingUI;
+    private Slider loadingSlider;
 
     private void Awake()
     {
@@ -22,36 +23,48 @@ public class LoadScenceManager : MonoBehaviour
         }
 
         FileManager.FilePathInit();
+        loadingSlider = loadingUI.GetComponentInChildren<Slider>();
+        loadingUI.SetActive(false);
+
+       
     }
 
     public void NewWorld()
     {
         // create empty gameData
         GameData gameData = new GameData();
-
+        
         // create new file
         string filePath = FileManager.NewFilePath();
-        int worldID = FileManager.FilePaths.Count - 1;
-        SavingSystem.SetWorldID(worldID);
+        int worldID = FileManager.FilePaths.Count - 1;      
+        SavingSystem.SetWorldID(worldID);      
+
         // save to file
         SavingSystem.Save(gameData);
-
-        LoadScene();      
-        
+        StartCoroutine(LoadScene());
     }
 
     public void LoadWorld(int worldIndex)
     {
         SavingSystem.SetWorldID(worldIndex);
-        LoadScene();
+        StartCoroutine(LoadScene());
     }
     public void Exit()
     {
         Application.Quit();
     }
-    public void LoadScene()
+    public IEnumerator LoadScene()
     {
-        SceneManager.LoadScene("Main");
+        loadingUI.SetActive(true);
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Main");
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress/0.9f); 
+            loadingSlider.value = progress; 
+
+            yield return null;  
+        }
+
     }
    
 

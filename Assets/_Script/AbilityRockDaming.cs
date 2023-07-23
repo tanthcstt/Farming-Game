@@ -12,14 +12,15 @@ public class AbilityRockDaming : AbilityDestroying
         if (target == null) return;
         if (target.activeSelf == false) return;
         if (target.CompareTag("Rock"))
-        {
+        {           
+
             StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Mining, () =>
-            {
-                playerMovement.ForceStop(true);
+            {               
                 Destroy();
-                Drop();
-                playerMovement.ForceStop(false);
+                Drop();               
+               
             }));
+
         }
     }
     

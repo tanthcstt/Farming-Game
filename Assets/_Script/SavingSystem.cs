@@ -31,12 +31,12 @@ public static class SavingSystem
     {
         CurrentWorldID = ID;
     }
-    public static bool IsFileExist()
-    {
-      
-        return File.Exists(GetPath());
-    }
+  
 
-   
+    public static void DeleteWorld(int worldID)
+    {
+        FileManager.DeleteFileByIndex(worldID);
+        FileManager.RemovePath(worldID);
+    }
 
 }

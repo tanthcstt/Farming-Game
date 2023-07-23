@@ -18,4 +18,4 @@ MonoBehaviour:
   maxOfStack: 3
   isUsableInInventory: 0
   prefab: {fileID: 3015086743849370323, guid: 212873aa1948a4a33a87d5f0d8518ac8, type: 3}
-  price: 0
+  price: 10

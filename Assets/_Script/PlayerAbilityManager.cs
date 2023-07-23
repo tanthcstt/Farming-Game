@@ -12,11 +12,12 @@ public class PlayerAbilityManager : MonoBehaviour
     public AbilityRockDaming rockDam;
     public AbilityHarvest harvest;
 
-    private PlayerMovement playerMovement;
+    
+    private MoveByKey moveByKey;
 
     private void Start()
     {       
-        playerMovement = transform.parent.GetComponentInChildren<PlayerMovement>(); 
+       
         currentBehaviour = hoeing;
     }
     private void Update()
@@ -24,7 +25,7 @@ public class PlayerAbilityManager : MonoBehaviour
         // set behaviour by conditon
         BehaviourController();
 
-        if (playerMovement.IsWalking()) return;
+       
         if (!Input.GetKeyDown(KeyManager.useAbility)) return;
 
         UseAbility();       
@@ -59,8 +60,8 @@ public class PlayerAbilityManager : MonoBehaviour
         currentBehaviour = behaviour;
     }
     public void UseAbility()
-    {
-        currentBehaviour.UpdateBehaviour(this);
+    {      
+        currentBehaviour.UpdateBehaviour(this);    
     }
 
 

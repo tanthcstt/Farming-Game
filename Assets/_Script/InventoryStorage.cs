@@ -12,7 +12,7 @@ public class InventoryStorage : MonoBehaviour
 
     [SerializeField] protected List<GeneralItemData> inventoryList = new List<GeneralItemData>();
     public List<GeneralItemData> InventoryList { get { return inventoryList; } }
-    public readonly int maxInventorySlot = 9;
+    public readonly int maxInventorySlot = 16;
    
     private void Awake()
     {

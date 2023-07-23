@@ -6,8 +6,10 @@ using UnityEngine.Rendering;
 
 public class AC_Player : MonoBehaviour
 {
+    public static AC_Player Instance { get; private set; }
     private Animator controller;
-    public PlayerMovement playerMovement;
+    public PlayerMovement movebyJoystick;
+    [SerializeField] protected MoveByMouseClick moveByTarget;
     public PlayerAbility playerBehaviour;
     public readonly float CollectingTime = 3f;
     public readonly float MiningTime = 3f;
@@ -34,6 +36,7 @@ public class AC_Player : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         controller = GetComponent<Animator>();
     }
 
@@ -52,14 +55,14 @@ public class AC_Player : MonoBehaviour
         switch(currentState)
         {
             case State.Idle:
-                if (playerMovement.IsWalking())
+                if (movebyJoystick.IsWalking())
                 {
                     currentState = State.Walking;
                 } 
                 break;
 
             case State.Walking:
-                if (!playerMovement.IsWalking())
+                if (!movebyJoystick.IsWalking())
                 {
                     currentState = State.Idle;
                 }
@@ -115,19 +118,23 @@ public class AC_Player : MonoBehaviour
                 break;
 
             case State.Collecting:
+                controller.SetBool("isWalking", false);
                 controller.SetBool("isCollecting", true);
                 break;
 
             case State.Mining:
+                controller.SetBool("isWalking", false);
                 controller.SetBool("isMining", true);
                 pickaxe.SetActive(true);
                 break;
             case State.TreeCutting:
+                controller.SetBool("isWalking", false);
                 controller.SetBool("isMining", true);
                 axe.SetActive(true);
                 break;
 
             case State.Hoeing:
+                controller.SetBool("isWalking", false);
                 controller.SetBool("isHoeing", true);
                 hoe.SetActive(true);
                 break ;
@@ -136,16 +143,22 @@ public class AC_Player : MonoBehaviour
 
     public IEnumerator WaitForAnimationEnd(State state, Action callback)
     {
-        playerMovement.ForceStop(true);
+        movebyJoystick.ForceStop(true);
+        moveByTarget.ForceStop(true);
 
         if (currentState == state) yield break;
-        currentState = state;
+        SetState(state);
         while(currentState == state)
         {
             yield return null;  
         }
+        movebyJoystick.ForceStop(false);
+        moveByTarget.ForceStop(false);
         callback.Invoke();
-
-        playerMovement.ForceStop(false);
+       
+    }
+    private void SetState(State state)
+    {
+        currentState = state;
     }
 }

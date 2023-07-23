@@ -11,15 +11,15 @@ public class AbilityCuttingTree : AbilityDestroying
         if (target == null) return; 
         if (target.activeSelf == false) return; 
         if (target.CompareTag("Tree"))
-        {           
+        {
+        
             StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.TreeCutting, () =>
-            {
-                playerMovement.ForceStop(true);
+            {               
                 Destroy();
                 Drop();
-                playerMovement.ForceStop(false);
+               
             }));
-
+          
         }
     }
 }

@@ -16,6 +16,6 @@ MonoBehaviour:
   growTime: 10
   seedPrefabs: {fileID: 1657809022809930581, guid: 2d811a51190cde5448e941e6e8e02df3, type: 3}
   dropItem: {fileID: 5443870293716321220, guid: 8d43668a7805940969dfc1102ec90f09, type: 3}
-  seedPrice: 0
+  seedPrice: 1
   plantName: Carrot
   sprite: {fileID: 21300000, guid: 02482987e5a59ca4f93789963ef45f9b, type: 3}

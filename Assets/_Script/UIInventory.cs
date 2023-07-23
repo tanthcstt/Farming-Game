@@ -8,12 +8,12 @@ using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
-    public GameObject UIPrefabs_Item;
+    public GameObject UIPrefabs_Item;  
     [Header("UIPrefabs_Item Component")]
     private Image itemSprite;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemCount;
-    private readonly int inventorySlot = 9;
+    private readonly int inventorySlot = 16;
 
     private void Start()
     {
@@ -82,6 +82,7 @@ public class UIInventory : MonoBehaviour
                 btn.onClick.AddListener(() =>
                 {
                     InventoryManager.Instance.UseItem(child.GetSiblingIndex());
+                   
                 });
             }
         }

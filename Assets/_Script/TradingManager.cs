@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class TradingManager : MonoBehaviour
 {
+
     public static TradingManager Instance { get; private set; }
+    [SerializeField] protected AudioSource purchaseComplete;
+   
     private void Awake()
     {
         Instance = this;
+       
     }
 
     public void Buy(ScriptableObject_Items item)
@@ -15,13 +19,15 @@ public class TradingManager : MonoBehaviour
         // check if enough money
         if (CoinManager.Instance.Coin >= item.price)
         {
-
-            GameObject newItem = Instantiate(item.prefab);
+                       
+            GameObject newItem = ObjectPooling.Instance.Spawn(item.prefab, Vector3.zero, true);
             // pickup
 
             InventoryManager.Instance.PickUpItem(newItem);
             // set coin
-            CoinManager.Instance.UpdateCoin(CoinManager.Instance.Coin - item.price);    
+            CoinManager.Instance.UpdateCoin(CoinManager.Instance.Coin - item.price);
+            // sound effect
+            purchaseComplete.Play();
         }
        
     }

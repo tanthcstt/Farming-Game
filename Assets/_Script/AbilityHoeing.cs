@@ -30,15 +30,16 @@ public class AbilityHoeing : PlayerAbility
         if (target == null) return;
         if (target.CompareTag("Grass"))
         {
+
            
-            playerMovement.ForceStop(true);
+            
             // hoeing
             StartCoroutine(AC_Player.WaitForAnimationEnd(AC_Player.State.Hoeing, () =>
             {
                 Vector3 targetPos = TargetManager.Instance.playerTarget.DownwardTarget(LayerMask.GetMask("Base"));
                 PlayerHoeing(Vector3Int.RoundToInt(targetPos));
+                
             }));
-
         }     
                 
     }
@@ -47,7 +48,6 @@ public class AbilityHoeing : PlayerAbility
 
         ObjectPooling.Instance.Spawn(cultivatedLand_Prefabs, pos);      
 
-        playerMovement.ForceStop(false);
        
     }
 

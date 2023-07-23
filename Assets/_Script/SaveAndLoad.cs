@@ -26,13 +26,12 @@ public class SaveAndLoad : MonoBehaviour
     }
     private void Start()
     {
-        LoadToWorld(SavingSystem.Load());
-
+        LoadToWorld(SavingSystem.Load()); 
        
     }
     private void Update()
     {
-       // if (Input.GetKeyDown(KeyCode.Tab)) { Save(); }
+      
         if (Input.GetKeyDown(KeyCode.I)) { coinManager.UpdateCoin(5); }
     }
 
@@ -62,10 +61,11 @@ public class SaveAndLoad : MonoBehaviour
             gameData.invenAmount.Add(amount);
         }
 
-        // save enviroment (dirt, plant)
+        // save enviroment 
         gameData.enviroment.Clear();
         foreach (Transform transform in ObjectPooling.Instance.poolTransform)
         {
+            //dirt - plant
             if (!transform.gameObject.activeSelf) continue;
 
             EnviromentObjectData objData = new EnviromentObjectData();
@@ -79,6 +79,9 @@ public class SaveAndLoad : MonoBehaviour
             {
                 objData.growingLevel = growing.Level;
             }
+
+            // construction
+
 
             gameData.enviroment.Add(objData);
         }
@@ -127,6 +130,7 @@ public class SaveAndLoad : MonoBehaviour
             Vector3 envPos = new Vector3(envData.x,envData.y,envData.z);
 
             GameObject envObj = ObjectPooling.Instance.Spawn(prefab, envPos, true);
+     
             if (envObj.TryGetComponent<PlantGrowing>(out PlantGrowing growing))
             {
                 growing.StartGrowing(envData.growingLevel);
