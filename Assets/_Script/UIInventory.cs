@@ -13,12 +13,22 @@ public class UIInventory : MonoBehaviour
     private Image itemSprite;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemCount;
-    private readonly int inventorySlot = 16;
+
+
+ 
 
     private void Start()
-    {
-        AddItemUIListener();
+    {       
+        AddItemUIListener();     
+      
     }
+    private void OnEnable()
+    {
+        UpdateInventoryUI(InventoryManager.Instance.inventoryStorage.InventoryList);
+        
+    }
+
+
     private void SetComponent(GameObject obj)
     {        
         itemSprite = obj.transform.Find("Sprite").GetComponent<Image>();        
@@ -34,44 +44,37 @@ public class UIInventory : MonoBehaviour
         itemCount.text = data.count.ToString();
         itemName.text = data.generalData.itemName;
     }
-    /// <summary>
-    /// if data != null && UI empty => instantiate new ui,
-    ///    data!=null && ui instantiated ==> update ui ;
-    /// </summary>
-    /// <param name="inventoryList"></param>
+   
     public void UpdateInventoryUI(List<GeneralItemData> inventoryList)
     {
-        int listSize = inventoryList.Count(item => item != null); //size of  unNull list
+        ResetInventoryUI();
+
+        int inventCount = inventoryList.Count(item => item != null);
+        int slotIndex = 0;
+
         for (int i = 0; i < inventoryList.Count; i++)
         {
-
             if (inventoryList[i] == null) continue;
-            if (inventoryList[i] != null && transform.GetChild(i).childCount != 0)
-            {
-                Transform slotTransform = transform.GetChild(i);
-                // reActivate if child activeSelf is set to false
-                slotTransform.GetChild(0).gameObject.SetActive(true);
-                SetComponent(slotTransform.GetChild(0).gameObject);
-                LoadUIData(inventoryList[i]);
-            }
-            if (inventoryList[i] != null && transform.GetChild(i).childCount == 0)
-            {
-                GameObject newItemUI = Instantiate(UIPrefabs_Item, transform.GetChild(i));
-                SetComponent(newItemUI);
-                LoadUIData(inventoryList[i]);
-            }
 
+            Transform slot = transform.GetChild(slotIndex);
+            slot.GetChild(0).gameObject.SetActive(true);
+            SetComponent(slot.GetChild(0).gameObject);
+            LoadUIData(inventoryList[i]);
+            slotIndex++;
         }
-        for (int i = listSize; i < inventorySlot; i++)
-        {
-            Transform slot = transform.GetChild(i);
-            if (slot.childCount > 0)
-            {
-                slot.GetChild(0).gameObject.SetActive(false); 
-            }
-        }
+
+     
+
     }
 
+    private void ResetInventoryUI()
+    {
+        foreach (Transform slot in transform)
+        {
+            slot.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+  
    
     private void AddItemUIListener() 
     {

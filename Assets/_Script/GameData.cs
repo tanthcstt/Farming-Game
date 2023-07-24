@@ -10,6 +10,10 @@ public class EnviromentObjectData
     public float x = 0;
     public float y = 0;
     public float z = 0;
+    // rotation
+    public float xRotation = 0;
+    public float yRotation = 0;
+    public float zRotation = 0;
     // planting
     public int growingLevel = 0;
      

@@ -63,24 +63,28 @@ public class SaveAndLoad : MonoBehaviour
 
         // save enviroment 
         gameData.enviroment.Clear();
-        foreach (Transform transform in ObjectPooling.Instance.poolTransform)
+        foreach (Transform objInPool in ObjectPooling.Instance.poolTransform)
         {
-            //dirt - plant
-            if (!transform.gameObject.activeSelf) continue;
+            if (!objInPool.gameObject.activeSelf) continue;
 
             EnviromentObjectData objData = new EnviromentObjectData();
 
-            objData.objectTagName = transform.gameObject.tag;
-            objData.x = transform.position.x;
-            objData.y = transform.position.y;
-            objData.z = transform.position.z;
+            objData.objectTagName = objInPool.gameObject.tag;
 
-            if (transform.gameObject.TryGetComponent<PlantGrowing>(out PlantGrowing growing))
+            objData.x = objInPool.position.x;
+            objData.y = objInPool.position.y;
+            objData.z = objInPool.position.z;
+
+            objData.xRotation = objInPool.rotation.eulerAngles.x;
+            objData.yRotation = objInPool.rotation.eulerAngles.y;
+            objData.zRotation = objInPool.rotation.eulerAngles.z;
+
+            if (objInPool.gameObject.TryGetComponent<PlantGrowing>(out PlantGrowing growing))
             {
                 objData.growingLevel = growing.Level;
             }
 
-            // construction
+          
 
 
             gameData.enviroment.Add(objData);
@@ -128,8 +132,10 @@ public class SaveAndLoad : MonoBehaviour
             if (prefab == null) continue;
 
             Vector3 envPos = new Vector3(envData.x,envData.y,envData.z);
+            Vector3 rotation = new Vector3(envData.xRotation, envData.yRotation, envData.zRotation);    
 
             GameObject envObj = ObjectPooling.Instance.Spawn(prefab, envPos, true);
+            envObj.transform.rotation = Quaternion.Euler(rotation);
      
             if (envObj.TryGetComponent<PlantGrowing>(out PlantGrowing growing))
             {
